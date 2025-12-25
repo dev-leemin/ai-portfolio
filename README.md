@@ -2,27 +2,50 @@
 
 보안을 최우선으로 고려한 최신 기술 스택 기반 AI 챗봇 포트폴리오
 
-## 실제 프로젝트 경력
+## 🌐 배포 정보
 
-### 1. KORAIL ERP
-- **기술 스택**: WebSquare, Java, Oracle
-- **설명**: 철도 공사 ERP 시스템 개발
+- **프로덕션 URL**: https://ai-portfolio-cyan-gamma.vercel.app
+- **GitHub Repository**: https://github.com/dev-leemin/ai-portfolio
+- **배포 플랫폼**: Vercel
 
-### 2. 가스안전공사 ERP
-- **기술 스택**: Nexacro, Java, PostgreSQL
-- **설명**: 안전관리 시스템
+## 📊 프로젝트 포트폴리오
 
-### 3. HD맵 노지 프로젝트
-- **기술 스택**: JavaScript, Java
-- **설명**: 지도 기반 노지 관리 시스템
+### 1. KORAIL ERP - 급여시스템
+- **기간**: 2021.05 - 2022.04
+- **역할**: 개발자
+- **기술 스택**: WebSquare, 전자정부 프레임워크, Tibero, JavaScript
+- **주요 업무**: 급여 시스템 개발, WebSquare 기반 화면 구현, Tibero DB 연동
 
-### 4. Zeniel ERP
-- **기술 스택**: WebSquare, Java, Oracle
-- **설명**: 전사적 자원관리 시스템
+### 2. 가스안전공사 차세대 ERP
+- **기간**: 2022.07 - 2023.03
+- **역할**: 개발자
+- **기술 스택**: Nexacro, PowerMDD, Oracle
+- **주요 업무**: 인사-평가 시스템 개발, 데이터 마이그레이션, 재무-회계 일부, 간이결재 시스템 관리, 권한 관리
+
+### 3. Zeniel ERP
+- **기간**: 2023.04 - 2024.07
+- **역할**: 개발자
+- **기술 스택**: WebSquare SP5, PostgreSQL, 전자정부 4.0
+- **주요 업무**: 시스템, 공통, 관리회계(경영관리) 전반 개발
+
+### 4. 노지 HD맵 프로젝트
+- **기간**: 2024.11 - 2024.12
+- **역할**: 개발자
+- **기술 스택**: WebSquare SP5, PostgreSQL, 전자정부 4.0
+- **주요 업무**: 드론 촬영 이미지 정사 처리 및 식생지수 조회 플랫폼
 
 ### 5. 인천환경공단 ERP
-- **기술 스택**: WebSquare, Java, PostgreSQL
-- **설명**: 환경 관리 및 업무 자동화 시스템
+- **기간**: 2024.07 - 진행중
+- **역할**: PL (프로젝트 리더)
+- **기술 스택**: Nexacro, 전자정부, PostgreSQL
+- **주요 업무**: SSO 연계, Handy 전자결재 연동, 공통 모듈 개발, 시스템 관리, 인사-평가 시스템, PL로서 프로젝트 총괄
+
+### 6. 실시간 협업 화이트보드 (개인 프로젝트)
+- **기간**: 2025.12
+- **역할**: 풀스택 개발자
+- **기술 스택**: Next.js 16, React 19, Socket.io, Canvas API, Zustand, Tailwind CSS
+- **주요 업무**: WebSocket 실시간 협업 구현, Canvas API 드로잉 시스템, 방 기반 다중 사용자 관리
+- **GitHub**: https://github.com/dev-leemin/collab-whiteboard
 
 ## 주요 기능
 
