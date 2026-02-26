@@ -36,14 +36,18 @@ export default function Home() {
           <h1 className="text-xl font-bold text-white">ERP Developer Portfolio</h1>
           <div className="flex items-center gap-4">
             <a
-              href="#"
+              href="https://github.com/dev-leemin"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-slate-400 hover:text-white transition-colors"
               aria-label="GitHub"
             >
               <Github className="w-5 h-5" />
             </a>
             <a
-              href="#"
+              href="https://github.com/dev-leemin"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-slate-400 hover:text-white transition-colors"
               aria-label="LinkedIn"
             >
@@ -419,13 +423,17 @@ export default function Home() {
                 <h4 className="text-white font-bold mb-4">Links</h4>
                 <div className="flex gap-4">
                   <a
-                    href="#"
+                    href="https://github.com/dev-leemin"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-slate-400 hover:text-white transition-colors"
                   >
                     <Github className="w-5 h-5" />
                   </a>
                   <a
-                    href="#"
+                    href="https://github.com/dev-leemin"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-slate-400 hover:text-white transition-colors"
                   >
                     <Linkedin className="w-5 h-5" />

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8E8E8"/>
+      <stop offset="50%" style="stop-color:#FFFFFF"/>
+      <stop offset="100%" style="stop-color:#B0B0B0"/>
+    </linearGradient>
+    <linearGradient id="accentBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4FF"/>
+      <stop offset="100%" style="stop-color:#0099FF"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="0.8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Code brackets < /> - minimal developer symbol -->
+  <path d="M10 10 L4 16 L10 22" stroke="url(#silverGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M22 10 L28 16 L22 22" stroke="url(#silverGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Center slash -->
+  <path d="M18 8 L14 24" stroke="url(#accentBlue)" stroke-width="2" stroke-linecap="round" filter="url(#glow)"/>
+  <!-- AI node points -->
+  <circle cx="4" cy="16" r="1.5" fill="url(#accentBlue)" filter="url(#glow)"/>
+  <circle cx="28" cy="16" r="1.5" fill="url(#accentBlue)" filter="url(#glow)"/>
+  <!-- Top accent dot -->
+  <circle cx="16" cy="4" r="1.2" fill="url(#accentBlue)" opacity="0.8"/>
+  <!-- Connection lines - neural network feel -->
+  <path d="M16 4 L14 8" stroke="url(#accentBlue)" stroke-width="0.5" opacity="0.6"/>
+  <path d="M16 4 L18 8" stroke="url(#accentBlue)" stroke-width="0.5" opacity="0.6"/>
+</svg>

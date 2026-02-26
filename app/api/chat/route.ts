@@ -1,10 +1,10 @@
-import Groq from 'groq-sdk'
+import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { sanitizeInput } from '@/lib/utils'
 
-// Groq 클라이언트 초기화
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY || '',
+// Anthropic 클라이언트 초기화
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY || '',
 })
 
 // Rate limiting을 위한 간단한 메모리 캐시
@@ -34,55 +34,7 @@ function checkRateLimit(ip: string): boolean {
   return true
 }
 
-/**
- * POST /api/chat
- * AI 챗봇 스트리밍 API
- */
-export async function POST(request: NextRequest) {
-  try {
-    // IP 기반 Rate Limiting
-    const ip = request.headers.get('x-forwarded-for') || 'unknown'
-    if (!checkRateLimit(ip)) {
-      return NextResponse.json(
-        { error: 'Too many requests. Please try again later.' },
-        { status: 429 }
-      )
-    }
-
-    // 요청 본문 파싱
-    const body = await request.json()
-    const { message, conversationHistory = [] } = body
-
-    // 입력값 검증 및 sanitization
-    if (!message || typeof message !== 'string') {
-      return NextResponse.json(
-        { error: 'Invalid message format' },
-        { status: 400 }
-      )
-    }
-
-    const sanitizedMessage = sanitizeInput(message, 500)
-
-    if (!sanitizedMessage.trim()) {
-      return NextResponse.json(
-        { error: 'Message cannot be empty' },
-        { status: 400 }
-      )
-    }
-
-    // API 키 확인
-    if (!process.env.GROQ_API_KEY) {
-      return NextResponse.json(
-        { error: 'API key not configured' },
-        { status: 500 }
-      )
-    }
-
-    // 대화 히스토리 구성 (최대 10개만 유지)
-    const messages = [
-      {
-        role: 'system',
-        content: `당신은 ERP 전문 개발자의 포트폴리오 AI 어시스턴트입니다.
+const SYSTEM_PROMPT = `당신은 ERP 전문 개발자의 포트폴리오 AI 어시스턴트입니다.
 
 ## 프로젝트 경력 (상세)
 
@@ -142,6 +94,29 @@ export async function POST(request: NextRequest) {
   * PL로서 프로젝트 총괄
 - 기술 스택: Nexacro, 전자정부, PostgreSQL
 
+### 6. 취뽀 (JobReady) - 개인 프로젝트 (2026.01)
+- 역할: 풀스택 개발자
+- 프로젝트 설명: AI 기반 취업 준비 SaaS 플랫폼
+- 주요 기능:
+  * AI 모의면접 시스템 (Groq LLM 기반)
+  * 자기소개 스크립트 생성기
+  * 이력서/자소서 AI 작성 지원
+  * 사용자 온보딩 및 프로필 관리
+- 기술 스택: Next.js 16, React 19, Groq AI, Prisma, PostgreSQL (Neon), NextAuth, Tailwind CSS
+- 배포: Vercel
+
+### 7. 도란도란 - 개인 프로젝트 (2026.02)
+- 역할: 풀스택 개발자
+- 프로젝트 설명: 성격 유형 테스트 소셜 플랫폼
+- 주요 기능:
+  * 직장인 캐릭터 테스트, 점심 취향 테스트, 궁합 테스트
+  * 방 생성 및 친구 초대 (비밀번호, QR코드, 링크 공유)
+  * 1:1 궁합 분석 및 그룹 궁합 랭킹
+  * 유형 분포 차트 시각화
+  * 리뷰 및 리액션 시스템
+- 기술 스택: Next.js 16, React 19, Prisma, PostgreSQL (Neon), NextAuth, Tailwind CSS
+- 배포: Vercel
+
 ## 기술 스택 정리
 - Frontend: WebSquare (SP5), Nexacro
 - Backend: Java, 전자정부 프레임워크, PowerMDD
@@ -164,44 +139,89 @@ export async function POST(request: NextRequest) {
 - Docker & Kubernetes: 컨테이너 오케스트레이션
 
 ## 답변 가이드
-- 프로젝트 경험과 기술 스택에 대해 구체적이고 상세하게 답변하세요
-- 한국어로 전문적이고 명확하게 작성하세요
-- 질문이 특정 프로젝트에 대한 것이면 해당 프로젝트의 상세 정보를 활용하세요
-- 자격증, 주요 성과, 관심 기술에 대한 질문에도 상세히 답변하세요`,
-      },
+- 이 개발자의 프로젝트 경험, 기술 스택, 경력, 자격증, 성과에 대한 질문에만 답변하세요.
+- 개발자와 관련 없는 질문(일반 지식, 코딩 도움, 다른 주제 등)에는 "저는 이 개발자의 포트폴리오에 대한 질문만 답변할 수 있습니다. 프로젝트, 기술 스택, 경력 등에 대해 물어봐 주세요!"라고 안내하세요.
+- 반드시 한국어로 답변하세요.
+- 질문이 특정 프로젝트에 대한 것이면 해당 프로젝트의 상세 정보를 활용하세요.`
+
+/**
+ * POST /api/chat
+ * AI 챗봇 스트리밍 API (Claude)
+ */
+export async function POST(request: NextRequest) {
+  try {
+    // IP 기반 Rate Limiting
+    const ip = request.headers.get('x-forwarded-for') || 'unknown'
+    if (!checkRateLimit(ip)) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429 }
+      )
+    }
+
+    // 요청 본문 파싱
+    const body = await request.json()
+    const { message, conversationHistory = [] } = body
+
+    // 입력값 검증 및 sanitization
+    if (!message || typeof message !== 'string') {
+      return NextResponse.json(
+        { error: 'Invalid message format' },
+        { status: 400 }
+      )
+    }
+
+    const sanitizedMessage = sanitizeInput(message, 500)
+
+    if (!sanitizedMessage.trim()) {
+      return NextResponse.json(
+        { error: 'Message cannot be empty' },
+        { status: 400 }
+      )
+    }
+
+    // API 키 확인
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return NextResponse.json(
+        { error: 'API key not configured' },
+        { status: 500 }
+      )
+    }
+
+    // 대화 히스토리 구성 (최대 10개만 유지)
+    const messages = [
       ...conversationHistory.slice(-10).map((msg: any) => ({
-        role: msg.role === 'user' ? 'user' : 'assistant',
+        role: msg.role === 'user' ? 'user' as const : 'assistant' as const,
         content: sanitizeInput(msg.content, 500),
       })),
       {
-        role: 'user',
+        role: 'user' as const,
         content: sanitizedMessage,
       },
     ]
 
-    // Groq API 호출 (스트리밍)
-    const completion = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile', // 무료이면서 빠른 모델
-      messages: messages as any,
-      temperature: 0.7,
+    // Claude API 호출 (스트리밍)
+    const stream = anthropic.messages.stream({
+      model: 'claude-haiku-4-5-20251001',
+      system: SYSTEM_PROMPT,
+      messages,
       max_tokens: 1024,
-      stream: true, // 스트리밍 활성화
     })
 
     // 스트리밍 응답 생성
     const encoder = new TextEncoder()
-    const stream = new ReadableStream({
+    const readableStream = new ReadableStream({
       async start(controller) {
         try {
-          for await (const chunk of completion) {
-            const content = chunk.choices[0]?.delta?.content || ''
-            if (content) {
-              // SSE 형식으로 전송
-              const data = `data: ${JSON.stringify({ content })}\n\n`
-              controller.enqueue(encoder.encode(data))
+          for await (const event of stream) {
+            if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+              const content = event.delta.text
+              if (content) {
+                const data = `data: ${JSON.stringify({ content })}\n\n`
+                controller.enqueue(encoder.encode(data))
+              }
             }
           }
-          // 스트림 종료
           controller.enqueue(encoder.encode('data: [DONE]\n\n'))
           controller.close()
         } catch (error) {
@@ -211,7 +231,7 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    return new Response(stream, {
+    return new Response(readableStream, {
       headers: {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
@@ -221,7 +241,6 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Chat API error:', error)
 
-    // 에러 응답
     return NextResponse.json(
       {
         error: error.message || 'Internal server error',
@@ -238,7 +257,7 @@ export async function POST(request: NextRequest) {
 export async function GET() {
   return NextResponse.json({
     status: 'ok',
-    model: 'llama-3.3-70b-versatile',
-    provider: 'Groq',
+    model: 'claude-haiku-4-5-20251001',
+    provider: 'Anthropic',
   })
 }

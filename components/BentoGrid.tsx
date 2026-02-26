@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Train, Flame, MapPin, Layers, Building2 } from 'lucide-react'
+import { Train, Flame, MapPin, Layers, Building2, ExternalLink, MessageCircleHeart } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -103,24 +103,47 @@ const projects = [
   },
   {
     id: 6,
-    title: '실시간 협업 화이트보드',
+    title: '취뽀 (JobReady)',
     company: '개인 프로젝트',
     role: '풀스택 개발자',
-    description: 'Next.js 16 + Socket.io 기반 실시간 다중 사용자 협업 화이트보드',
+    description: 'AI 기반 취업 준비 SaaS - 모의면접, 자기소개 스크립트, 이력서/자소서 작성 지원',
     icon: Layers,
-    color: 'from-violet-500 to-purple-500',
-    tech: ['Next.js 16', 'React 19', 'Socket.io', 'Canvas API', 'Zustand', 'Tailwind CSS'],
-    period: '2025.12',
+    color: 'from-indigo-500 to-purple-500',
+    tech: ['Next.js 16', 'React 19', 'Groq AI', 'Prisma', 'PostgreSQL', 'NextAuth', 'Tailwind CSS'],
+    period: '2026.01',
     responsibilities: [
-      'WebSocket 실시간 협업 구현',
-      'Canvas API 드로잉 시스템',
-      '방 기반 다중 사용자 관리',
-      '실시간 그리기 동기화',
-      'Undo/Redo 히스토리 관리',
-      '색상/도구 시스템 구현',
-      '모바일 반응형 지원'
+      'AI 모의면접 시스템 구현',
+      '자기소개 스크립트 생성기',
+      '이력서/자소서 AI 작성 지원',
+      'Groq LLM API 연동',
+      'NextAuth 소셜 로그인',
+      'Prisma + PostgreSQL 데이터 관리',
+      'Vercel 배포 및 운영'
     ],
-    image: '/projects/whiteboard.png',
+    image: '/projects/jobready.png',
+    url: 'https://job-ready-smlees-projects-96d0b73d.vercel.app',
+  },
+  {
+    id: 7,
+    title: '도란도란',
+    company: '개인 프로젝트',
+    role: '풀스택 개발자',
+    description: '성격 유형 테스트 플랫폼 - 직장인 캐릭터, 점심 취향, 궁합 테스트 등 소셜 기능 포함',
+    icon: MessageCircleHeart,
+    color: 'from-pink-500 to-rose-500',
+    tech: ['Next.js 16', 'React 19', 'Prisma', 'PostgreSQL', 'NextAuth', 'Tailwind CSS'],
+    period: '2026.02',
+    responsibilities: [
+      '성격 유형 테스트 시스템 구현',
+      '방 생성 및 친구 초대 기능',
+      '1:1 궁합 분석 및 그룹 궁합 랭킹',
+      'QR코드 공유 및 링크 초대',
+      'OAuth 소셜 로그인 (Google, Kakao)',
+      'Prisma + PostgreSQL 데이터 관리',
+      'Vercel 배포 및 운영'
+    ],
+    image: '/projects/doran.png',
+    url: 'https://doran-orcin.vercel.app',
   },
 ]
 
@@ -255,6 +278,21 @@ export default function BentoGrid() {
               ))}
             </div>
           </div>
+
+          {/* URL 링크 */}
+          {'url' in project && project.url && (
+            <div className="mt-4 pt-4 border-t border-slate-700">
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm font-medium rounded-lg hover:from-indigo-600 hover:to-purple-600 transition-all"
+              >
+                <ExternalLink className="w-4 h-4" />
+                서비스 바로가기
+              </a>
+            </div>
+          )}
         </motion.div>
         ))}
       </div>
