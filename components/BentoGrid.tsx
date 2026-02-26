@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Train, Flame, MapPin, Layers, Building2, ExternalLink, MessageCircleHeart } from 'lucide-react'
+import { Train, Flame, MapPin, Layers, Building2, ExternalLink, MessageCircleHeart, Dices } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -144,6 +144,28 @@ const projects = [
     ],
     image: '/projects/doran.png',
     url: 'https://doran-orcin.vercel.app',
+  },
+  {
+    id: 8,
+    title: '내로또 - AI 로또 예측기',
+    company: '개인 프로젝트',
+    role: '풀스택 개발자',
+    description: 'AI 기반 로또 6/45 및 연금복권 720+ 번호 예측 서비스. CDM 확률 모델과 백테스트 검증 공식 적용',
+    icon: Dices,
+    color: 'from-yellow-500 to-orange-500',
+    tech: ['Next.js 16', 'React 19', 'Prisma', 'PostgreSQL', 'ml-regression', 'Tailwind CSS'],
+    period: '2026.02',
+    responsibilities: [
+      'CDM 확률 모델 기반 번호 예측 시스템',
+      '백테스트 검증 시스템 구현',
+      '로또 6/45 + 연금복권 720+ 분석',
+      '스마트 랜덤 번호 생성기',
+      '과거 회차 당첨번호 비교 기능',
+      'Google AdSense 광고 연동',
+      'Vercel 배포 및 운영'
+    ],
+    image: null,
+    url: 'https://lotto-predictor-two.vercel.app',
   },
 ]
 
