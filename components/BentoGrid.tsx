@@ -164,7 +164,7 @@ const projects = [
       'Google AdSense 광고 연동',
       'Vercel 배포 및 운영'
     ],
-    image: null,
+    image: '/projects/lotto.png',
     url: 'https://lotto-predictor-two.vercel.app',
   },
 ]
