@@ -5,7 +5,7 @@ import { Train, Flame, MapPin, Layers, Building2, ExternalLink, MessageCircleHea
 import Image from 'next/image'
 import { useState } from 'react'
 
-const projects = [
+const careerProjects = [
   {
     id: 1,
     title: 'KORAIL ERP - 급여시스템',
@@ -79,7 +79,7 @@ const projects = [
       '이미지 업로드 및 정사 처리',
       '식생지수 조회 기능'
     ],
-    image: null, // HD맵 이미지 없음
+    image: null,
   },
   {
     id: 5,
@@ -101,6 +101,9 @@ const projects = [
     ],
     image: '/projects/incheon.png',
   },
+]
+
+const personalProjects = [
   {
     id: 6,
     title: '취뽀 (JobReady)',
@@ -169,8 +172,160 @@ const projects = [
   },
 ]
 
+interface Project {
+  id: number
+  title: string
+  company: string
+  role: string
+  description: string
+  icon: React.ComponentType<{ className?: string }>
+  color: string
+  tech: string[]
+  period: string
+  responsibilities: string[]
+  image: string | null
+  url?: string
+}
+
+function ProjectCard({
+  project,
+  index,
+  imageErrors,
+  expandedProjects,
+  onImageError,
+  onToggleExpanded,
+  onOpenImage,
+}: {
+  project: Project
+  index: number
+  imageErrors: Record<number, boolean>
+  expandedProjects: Record<number, boolean>
+  onImageError: (id: number) => void
+  onToggleExpanded: (id: number) => void
+  onOpenImage: (src: string, title: string) => void
+}) {
+  return (
+    <motion.div
+      key={project.id}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+      className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-slate-600 transition-all"
+    >
+      {/* 헤더 */}
+      <div className="flex items-start gap-4 mb-4">
+        <div
+          className={`w-12 h-12 rounded-lg bg-gradient-to-br ${project.color} flex items-center justify-center flex-shrink-0`}
+        >
+          <project.icon className="w-6 h-6 text-white" />
+        </div>
+        <div className="flex-1">
+          <h3 className="text-lg font-bold text-white mb-1">{project.title}</h3>
+          <div className="flex items-center gap-2 text-sm text-slate-400">
+            <span>{project.company}</span>
+            <span>•</span>
+            <span className="text-blue-400">{project.role}</span>
+          </div>
+          <p className="text-xs text-slate-500 mt-1">{project.period}</p>
+        </div>
+      </div>
+
+      {/* 설명 */}
+      <p className="text-sm text-slate-300 mb-4">{project.description}</p>
+
+      {/* 프로젝트 이미지 */}
+      <div className="mb-4 h-48 bg-slate-900/50 rounded-lg border border-slate-700 overflow-hidden relative group">
+        {project.image && !imageErrors[project.id] ? (
+          <>
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              onError={() => onImageError(project.id)}
+            />
+            <button
+              onClick={() => onOpenImage(project.image!, project.title)}
+              className="absolute inset-0 bg-black/0 hover:bg-black/40 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100"
+            >
+              <span className="text-white text-sm font-semibold bg-slate-900/80 px-4 py-2 rounded-lg">
+                클릭하여 확대
+              </span>
+            </button>
+          </>
+        ) : (
+          <div className="h-full flex items-center justify-center">
+            <p className="text-slate-500 text-sm">
+              {project.image ? '이미지 로딩 중...' : '이미지 준비중'}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* 주요 업무 */}
+      <div className="mb-4">
+        <h4 className="text-xs text-slate-500 uppercase tracking-wider mb-2">주요 업무</h4>
+        <ul className="space-y-1">
+          {(expandedProjects[project.id]
+            ? project.responsibilities
+            : project.responsibilities.slice(0, 3)
+          ).map((task, idx) => (
+            <li key={idx} className="text-sm text-slate-400 flex items-start gap-2">
+              <span className="text-blue-400 mt-1">•</span>
+              <span>{task}</span>
+            </li>
+          ))}
+          {project.responsibilities.length > 3 && (
+            <li>
+              <button
+                onClick={() => onToggleExpanded(project.id)}
+                className="text-sm text-blue-400 hover:text-blue-300 transition-colors mt-1"
+              >
+                {expandedProjects[project.id]
+                  ? '접기'
+                  : `+${project.responsibilities.length - 3}개 업무 더보기`}
+              </button>
+            </li>
+          )}
+        </ul>
+      </div>
+
+      {/* 기술 스택 */}
+      <div>
+        <h4 className="text-xs text-slate-500 uppercase tracking-wider mb-2">Tech Stack</h4>
+        <div className="flex flex-wrap gap-2">
+          {project.tech.map((tech) => (
+            <span
+              key={tech}
+              className="text-xs px-2 py-1 bg-slate-700/50 text-slate-300 rounded"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* URL 링크 */}
+      {project.url && (
+        <div className="mt-4 pt-4 border-t border-slate-700">
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm font-medium rounded-lg hover:from-indigo-600 hover:to-purple-600 transition-all"
+          >
+            <ExternalLink className="w-4 h-4" />
+            서비스 바로가기
+          </a>
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
 /**
- * 프로젝트 카드 그리드 - 상세 정보 + 이미지 포함
+ * 프로젝트 카드 그리드 - 경력 프로젝트 / 개인 프로젝트 분리
  */
 export default function BentoGrid() {
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({})
@@ -195,128 +350,49 @@ export default function BentoGrid() {
 
   return (
     <>
+      {/* 경력 프로젝트 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {projects.map((project, index) => (
-        <motion.div
-          key={project.id}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.1 }}
-          className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-slate-600 transition-all"
-        >
-          {/* 헤더 */}
-          <div className="flex items-start gap-4 mb-4">
-            {/* 아이콘 */}
-            <div
-              className={`w-12 h-12 rounded-lg bg-gradient-to-br ${project.color} flex items-center justify-center flex-shrink-0`}
-            >
-              <project.icon className="w-6 h-6 text-white" />
-            </div>
-
-            {/* 제목 및 회사 */}
-            <div className="flex-1">
-              <h3 className="text-lg font-bold text-white mb-1">{project.title}</h3>
-              <div className="flex items-center gap-2 text-sm text-slate-400">
-                <span>{project.company}</span>
-                <span>•</span>
-                <span className="text-blue-400">{project.role}</span>
-              </div>
-              <p className="text-xs text-slate-500 mt-1">{project.period}</p>
-            </div>
-          </div>
-
-          {/* 설명 */}
-          <p className="text-sm text-slate-300 mb-4">{project.description}</p>
-
-          {/* 프로젝트 이미지 */}
-          <div className="mb-4 h-48 bg-slate-900/50 rounded-lg border border-slate-700 overflow-hidden relative group">
-            {project.image && !imageErrors[project.id] ? (
-              <>
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  onError={() => handleImageError(project.id)}
-                />
-                <button
-                  onClick={() => openImageModal(project.image!, project.title)}
-                  className="absolute inset-0 bg-black/0 hover:bg-black/40 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100"
-                >
-                  <span className="text-white text-sm font-semibold bg-slate-900/80 px-4 py-2 rounded-lg">
-                    클릭하여 확대
-                  </span>
-                </button>
-              </>
-            ) : (
-              <div className="h-full flex items-center justify-center">
-                <p className="text-slate-500 text-sm">
-                  {project.image ? '이미지 로딩 중...' : '이미지 준비중'}
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* 주요 업무 */}
-          <div className="mb-4">
-            <h4 className="text-xs text-slate-500 uppercase tracking-wider mb-2">주요 업무</h4>
-            <ul className="space-y-1">
-              {(expandedProjects[project.id]
-                ? project.responsibilities
-                : project.responsibilities.slice(0, 3)
-              ).map((task, idx) => (
-                <li key={idx} className="text-sm text-slate-400 flex items-start gap-2">
-                  <span className="text-blue-400 mt-1">•</span>
-                  <span>{task}</span>
-                </li>
-              ))}
-              {project.responsibilities.length > 3 && (
-                <li>
-                  <button
-                    onClick={() => toggleExpanded(project.id)}
-                    className="text-sm text-blue-400 hover:text-blue-300 transition-colors mt-1"
-                  >
-                    {expandedProjects[project.id]
-                      ? '접기'
-                      : `+${project.responsibilities.length - 3}개 업무 더보기`}
-                  </button>
-                </li>
-              )}
-            </ul>
-          </div>
-
-          {/* 기술 스택 */}
-          <div>
-            <h4 className="text-xs text-slate-500 uppercase tracking-wider mb-2">Tech Stack</h4>
-            <div className="flex flex-wrap gap-2">
-              {project.tech.map((tech) => (
-                <span
-                  key={tech}
-                  className="text-xs px-2 py-1 bg-slate-700/50 text-slate-300 rounded"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* URL 링크 */}
-          {'url' in project && project.url && (
-            <div className="mt-4 pt-4 border-t border-slate-700">
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm font-medium rounded-lg hover:from-indigo-600 hover:to-purple-600 transition-all"
-              >
-                <ExternalLink className="w-4 h-4" />
-                서비스 바로가기
-              </a>
-            </div>
-          )}
-        </motion.div>
+        {careerProjects.map((project, index) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            index={index}
+            imageErrors={imageErrors}
+            expandedProjects={expandedProjects}
+            onImageError={handleImageError}
+            onToggleExpanded={toggleExpanded}
+            onOpenImage={openImageModal}
+          />
         ))}
+      </div>
+
+      {/* 개인 프로젝트 섹션 */}
+      <div className="mt-20">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <h3 className="text-3xl md:text-4xl font-bold text-white mb-3">개인 프로젝트</h3>
+          <p className="text-slate-400">Next.js & React 기반 풀스택 사이드 프로젝트</p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {personalProjects.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              imageErrors={imageErrors}
+              expandedProjects={expandedProjects}
+              onImageError={handleImageError}
+              onToggleExpanded={toggleExpanded}
+              onOpenImage={openImageModal}
+            />
+          ))}
+        </div>
       </div>
 
       {/* 이미지 확대 모달 */}
@@ -335,7 +411,6 @@ export default function BentoGrid() {
             className="relative max-w-6xl w-full"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* 닫기 버튼 */}
             <button
               onClick={closeImageModal}
               className="absolute -top-12 right-0 text-white hover:text-slate-300 transition-colors"
@@ -355,7 +430,6 @@ export default function BentoGrid() {
               </svg>
             </button>
 
-            {/* 이미지 */}
             <div className="relative w-full aspect-video bg-slate-900 rounded-xl overflow-hidden border border-slate-700">
               <Image
                 src={selectedImage.src}
@@ -365,7 +439,6 @@ export default function BentoGrid() {
               />
             </div>
 
-            {/* 제목 */}
             <p className="text-center text-white mt-4 text-lg font-semibold">
               {selectedImage.title}
             </p>
