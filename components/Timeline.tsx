@@ -19,7 +19,7 @@ const experiences = [
     tech: ['Nexacro', '전자정부', 'PostgreSQL'],
   },
   {
-    company: '(프로젝트)',
+    company: '노지 HD Map',
     title: '노지 HD맵 프로젝트',
     role: '개발자',
     period: '2024.11 - 2024.12',

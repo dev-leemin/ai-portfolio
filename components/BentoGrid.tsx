@@ -63,7 +63,7 @@ const careerProjects = [
   {
     id: 4,
     title: '노지 HD맵 프로젝트',
-    company: '(프로젝트)',
+    company: '노지 HD Map',
     role: '개발자',
     description:
       '드론이 촬영한 농지 영상을 업로드하고, 정사 처리하여 하나의 이미지로 합성한 뒤 식생지수(NDVI)를 조회할 수 있는 플랫폼. 시스템 구축부터 DB 관리, 영상 업로드, 식생지수 조회까지 전반을 담당했습니다.',
