@@ -7,7 +7,8 @@ import {
   Github,
   Linkedin,
   Mail,
-  ExternalLink,
+  ArrowRight,
+  Terminal,
 } from 'lucide-react'
 import ChatBot from '@/components/ChatBot'
 import BentoGrid from '@/components/BentoGrid'
@@ -20,6 +21,13 @@ const navItems = [
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
+]
+
+const stats = [
+  { value: '5+', label: '프로젝트', sub: '공공기관·민간·정부용역' },
+  { value: '10K', label: '사용자', sub: 'Zeniel ERP 운영 규모' },
+  { value: '0건', label: '배포 후 이슈', sub: '전 프로젝트 무결함' },
+  { value: '4년+', label: '경력', sub: '신입 → PL 성장' },
 ]
 
 export default function Home() {
@@ -49,7 +57,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             className="text-accent font-mono text-xl font-bold hover:opacity-80 transition-opacity"
           >
-            SM
+            {'<SM />'}
           </motion.a>
 
           <div className="hidden md:flex items-center gap-6">
@@ -77,7 +85,6 @@ export default function Home() {
             </motion.button>
           </div>
 
-          {/* Mobile menu button */}
           <button
             onClick={() => setShowChat(true)}
             className="md:hidden text-accent"
@@ -90,7 +97,7 @@ export default function Home() {
       <main>
         {/* Hero Section */}
         <section className="min-h-screen flex items-center px-6 md:px-12 max-w-6xl mx-auto">
-          <div>
+          <div className="w-full">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -113,29 +120,66 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-4xl md:text-6xl font-bold text-dev-slate mb-6"
+              className="text-3xl md:text-5xl font-bold text-dev-slate mb-8"
             >
               공공기관 ERP를 만듭니다.
             </motion.h2>
 
-            <motion.p
+            {/* Terminal-style code block */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="max-w-xl text-dev-slate text-lg leading-relaxed mb-10"
+              className="max-w-2xl bg-navy-light border border-navy-lighter rounded-lg p-5 mb-10 font-mono text-sm"
             >
-              4년 이상의 경험을 보유한 ERP 전문 개발자입니다.
-              한국철도공사, 가스안전공사, 인천환경공단 등 대형 공공기관 프로젝트를
-              수행하며, 현재는{' '}
-              <span className="text-accent">PL(프로젝트 리더)</span>로서
-              프로젝트 전체를 총괄하고 있습니다.
-            </motion.p>
+              <div className="flex items-center gap-2 mb-3 text-dev-slate">
+                <Terminal className="w-4 h-4 text-accent" />
+                <span className="text-xs">sm.lee — career.log</span>
+              </div>
+              <div className="space-y-1">
+                <p>
+                  <span className="text-accent">const</span>{' '}
+                  <span className="text-lightest-slate">developer</span>{' '}
+                  <span className="text-accent">=</span> {'{'}
+                </p>
+                <p className="pl-4">
+                  <span className="text-dev-slate">role:</span>{' '}
+                  <span className="text-amber-300">&quot;ERP 전문 개발자 · PL&quot;</span>,
+                </p>
+                <p className="pl-4">
+                  <span className="text-dev-slate">experience:</span>{' '}
+                  <span className="text-amber-300">&quot;4년+ (신입 → PL)&quot;</span>,
+                </p>
+                <p className="pl-4">
+                  <span className="text-dev-slate">projects:</span>{' '}
+                  <span className="text-purple-400">[</span>
+                  <span className="text-amber-300">&quot;KORAIL&quot;</span>,{' '}
+                  <span className="text-amber-300">&quot;가스안전공사&quot;</span>,{' '}
+                  <span className="text-amber-300">&quot;Zeniel&quot;</span>,{' '}
+                  <span className="text-amber-300">&quot;인천환경공단&quot;</span>
+                  <span className="text-purple-400">]</span>,
+                </p>
+                <p className="pl-4">
+                  <span className="text-dev-slate">sideProjects:</span>{' '}
+                  <span className="text-purple-400">[</span>
+                  <span className="text-amber-300">&quot;취뽀&quot;</span>,{' '}
+                  <span className="text-amber-300">&quot;도란도란&quot;</span>,{' '}
+                  <span className="text-amber-300">&quot;내로또&quot;</span>
+                  <span className="text-purple-400">]</span>,
+                </p>
+                <p className="pl-4">
+                  <span className="text-dev-slate">status:</span>{' '}
+                  <span className="text-amber-300">&quot;현재 인천환경공단 ERP PL 진행중&quot;</span>
+                </p>
+                <p>{'}'}</p>
+              </div>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="flex items-center gap-4"
+              className="flex items-center gap-4 flex-wrap"
             >
               <a
                 href="mailto:leemin-dev@gmail.com"
@@ -147,12 +191,39 @@ export default function Home() {
                 onClick={() =>
                   document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
                 }
-                className="px-6 py-3 text-slate-light text-sm hover:text-accent transition-colors font-mono"
+                className="px-6 py-3 text-slate-light text-sm hover:text-accent transition-colors font-mono flex items-center gap-2"
               >
-                프로젝트 보기 →
+                프로젝트 보기 <ArrowRight className="w-4 h-4" />
               </button>
             </motion.div>
           </div>
+        </section>
+
+        {/* Stats Bar */}
+        <section className="px-6 md:px-12 max-w-6xl mx-auto -mt-8 mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-4"
+          >
+            {stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-navy-light border border-navy-lighter rounded-lg p-5 text-center hover:border-accent/30 transition-colors group"
+              >
+                <p className="text-3xl md:text-4xl font-bold text-accent mb-1 group-hover:scale-105 transition-transform">
+                  {stat.value}
+                </p>
+                <p className="text-lightest-slate text-sm font-medium">{stat.label}</p>
+                <p className="text-dev-slate text-xs mt-1">{stat.sub}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </section>
 
         {/* About Section */}
@@ -173,25 +244,41 @@ export default function Home() {
 
             <div className="grid md:grid-cols-3 gap-12">
               <div className="md:col-span-2 space-y-4">
-                <p className="leading-relaxed">
+                <p className="text-base leading-relaxed">
                   4년 이상의{' '}
                   <span className="text-lightest-slate">공공기관 ERP 시스템 구축 경험</span>을
                   보유한 개발자입니다. 한국철도공사 급여시스템을 시작으로, 가스안전공사 차세대
                   ERP 마이그레이션, Zeniel ERP 관리회계 시스템, 인천환경공단 ERP까지
                   다양한 대형 프로젝트를 수행해왔습니다.
                 </p>
-                <p className="leading-relaxed">
+                <p className="text-base leading-relaxed">
                   인사-평가, 시스템/공통, 관리회계, 권한관리 등{' '}
                   <span className="text-lightest-slate">ERP의 핵심 모듈을 직접 설계하고 개발</span>한
                   경험이 있으며, SSO 연계, 전자결재 연동, 그룹웨어 통합 등 외부 시스템
                   연동까지 폭넓은 영역을 담당해왔습니다.
                 </p>
-                <p className="leading-relaxed">
+                <p className="text-base leading-relaxed">
                   현재는 인천환경공단 ERP 프로젝트에서{' '}
-                  <span className="text-accent">PL(프로젝트 리더)</span>로서 프로젝트
-                  전체를 총괄하고 있으며, 업무 외 시간에는 Next.js와 React를 활용한
+                  <span className="text-accent">PL(프로젝트 리더)</span>로서 9명의 팀을
+                  이끌고 있으며, 업무 외 시간에는 Next.js와 React를 활용한
                   개인 프로젝트를 통해 모던 웹 기술 역량을 확장하고 있습니다.
                 </p>
+
+                {/* Growth Path */}
+                <div className="pt-6">
+                  <p className="text-accent font-mono text-xs mb-4">// growth path</p>
+                  <div className="flex items-center gap-2 text-sm font-mono flex-wrap">
+                    <span className="px-3 py-1.5 bg-navy-light border border-navy-lighter rounded text-dev-slate">신입사원</span>
+                    <ArrowRight className="w-3 h-3 text-accent flex-shrink-0" />
+                    <span className="px-3 py-1.5 bg-navy-light border border-navy-lighter rounded text-dev-slate">사원</span>
+                    <ArrowRight className="w-3 h-3 text-accent flex-shrink-0" />
+                    <span className="px-3 py-1.5 bg-navy-light border border-navy-lighter rounded text-dev-slate">대리</span>
+                    <ArrowRight className="w-3 h-3 text-accent flex-shrink-0" />
+                    <span className="px-3 py-1.5 bg-navy-light border border-navy-lighter rounded text-slate-light">과장</span>
+                    <ArrowRight className="w-3 h-3 text-accent flex-shrink-0" />
+                    <span className="px-3 py-1.5 bg-accent-tint border border-accent/30 rounded text-accent font-semibold">PL</span>
+                  </div>
+                </div>
 
                 <div className="pt-4">
                   <p className="text-lightest-slate text-sm mb-3">최근 사용 기술:</p>
@@ -218,23 +305,13 @@ export default function Home() {
                 {/* Profile Photo */}
                 <div className="relative group">
                   <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-navy-light border-2 border-navy-lighter group-hover:border-accent/50 transition-colors">
-                    {/* Placeholder - 사진 추가 시 Image 컴포넌트로 교체 */}
                     <div className="w-full h-full flex flex-col items-center justify-center text-dev-slate">
                       <svg className="w-16 h-16 mb-2 text-navy-lighter" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                       </svg>
                       <span className="text-xs font-mono text-dev-slate">photo</span>
                     </div>
-                    {/* 사진 추가 시 아래 주석 해제
-                    <Image
-                      src="/profile.jpg"
-                      alt="이상민"
-                      fill
-                      className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-300"
-                    />
-                    */}
                   </div>
-                  {/* Green overlay border effect */}
                   <div className="absolute -inset-0 border-2 border-accent/30 rounded-lg translate-x-3 translate-y-3 -z-10 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform" />
                 </div>
 
@@ -249,15 +326,19 @@ export default function Home() {
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
                       <span className="text-accent mt-0.5">▹</span>
-                      모든 프로젝트 배포 후 이슈 제로
+                      전 프로젝트 배포 후 이슈 제로
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-accent mt-0.5">▹</span>
-                      대용량 데이터 마이그레이션 무결성 달성
+                      급여 프로시저 3분→12초 튜닝
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-accent mt-0.5">▹</span>
-                      개발자에서 PL로 성장한 리더십
+                      DB 콜드 스타트 5초→0.4초 단축
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-accent mt-0.5">▹</span>
+                      신입사원에서 PL로 성장
                     </li>
                   </ul>
                 </div>
@@ -389,15 +470,10 @@ export default function Home() {
               <Mail className="w-5 h-5" />
             </a>
           </div>
-          <a
-            href="https://github.com/dev-leemin"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-slate-dark text-xs font-mono hover:text-accent transition-colors"
-          >
+          <div className="text-slate-dark text-xs font-mono">
             <p>Built with Next.js & Claude AI</p>
             <p className="mt-1">Designed by sm.lee</p>
-          </a>
+          </div>
         </footer>
       </main>
 
