@@ -13,6 +13,9 @@ import {
   Code,
   Calendar,
   TrendingUp,
+  User,
+  GraduationCap,
+  Target,
 } from 'lucide-react'
 import ChatBot from '@/components/ChatBot'
 import BentoGrid from '@/components/BentoGrid'
@@ -158,8 +161,80 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 핵심 역량 */}
+        {/* About Me */}
         <section className="px-6 py-16 bg-slate-900/50">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <User className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="text-3xl font-bold text-white">About Me</h3>
+              </div>
+
+              <div className="grid lg:grid-cols-3 gap-8">
+                {/* 소개 글 */}
+                <div className="lg:col-span-2 space-y-4">
+                  <p className="text-lg text-slate-300 leading-relaxed">
+                    4년 이상의 <span className="text-blue-400 font-semibold">공공기관 ERP 시스템 구축 경험</span>을 보유한 개발자입니다.
+                    한국철도공사 급여시스템을 시작으로, 가스안전공사 차세대 ERP 마이그레이션, Zeniel ERP 관리회계 시스템,
+                    인천환경공단 ERP까지 다양한 대형 프로젝트를 수행해왔습니다.
+                  </p>
+                  <p className="text-lg text-slate-300 leading-relaxed">
+                    인사-평가, 시스템/공통, 관리회계, 권한관리 등 <span className="text-blue-400 font-semibold">ERP의 핵심 모듈을 직접 설계하고 개발</span>한 경험이 있으며,
+                    SSO 연계, 전자결재 연동, 그룹웨어 통합 등 외부 시스템 연동까지 폭넓은 영역을 담당해왔습니다.
+                  </p>
+                  <p className="text-lg text-slate-300 leading-relaxed">
+                    현재는 인천환경공단 ERP 프로젝트에서 <span className="text-blue-400 font-semibold">PL(프로젝트 리더)</span>로서
+                    프로젝트 전체를 총괄하고 있으며, 업무 외 시간에는 Next.js와 React를 활용한 개인 프로젝트를 통해
+                    모던 웹 기술 역량을 확장하고 있습니다.
+                  </p>
+                </div>
+
+                {/* 프로필 카드 */}
+                <div className="space-y-4">
+                  <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-5">
+                    <div className="flex items-center gap-3 mb-4">
+                      <GraduationCap className="w-5 h-5 text-yellow-400" />
+                      <span className="text-white font-semibold">자격증</span>
+                    </div>
+                    <p className="text-slate-300">정보처리기사</p>
+                    <p className="text-xs text-slate-500 mt-1">한국산업인력공단</p>
+                  </div>
+
+                  <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-5">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Target className="w-5 h-5 text-green-400" />
+                      <span className="text-white font-semibold">강점</span>
+                    </div>
+                    <ul className="space-y-2 text-sm text-slate-300">
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-400 mt-0.5">•</span>
+                        <span>모든 프로젝트 배포 후 이슈 제로</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-400 mt-0.5">•</span>
+                        <span>대용량 데이터 마이그레이션 무결성 달성</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-400 mt-0.5">•</span>
+                        <span>개발자에서 PL로 성장한 리더십</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* 핵심 역량 */}
+        <section className="px-6 py-16">
           <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0 }}
@@ -448,7 +523,7 @@ export default function Home() {
               </div>
             </div>
             <div className="text-center text-slate-500 text-sm pt-8 border-t border-slate-800">
-              <p>&copy; 2025 sm.lee • ERP Developer Portfolio • Built with Next.js 16 & Groq AI</p>
+              <p>&copy; 2025 sm.lee • ERP Developer Portfolio • Built with Next.js 16 & Claude AI</p>
             </div>
           </div>
         </footer>
