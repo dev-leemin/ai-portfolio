@@ -5,9 +5,10 @@ import { useState } from 'react'
 
 const experiences = [
   {
-    company: '인천광역시환경공단',
+    company: '인천환경공단',
     title: '인천환경공단 ERP',
     role: 'PL (프로젝트 리더)',
+    type: '공공기관',
     period: '2024.07 - 현재',
     description: [
       'PL로서 프로젝트 일정 관리 및 개발 총괄',
@@ -22,6 +23,7 @@ const experiences = [
     company: '노지 HD Map',
     title: '노지 HD맵 프로젝트',
     role: '개발자',
+    type: '정부용역',
     period: '2024.11 - 2024.12',
     description: [
       '전체 시스템 아키텍처 설계 및 플랫폼 구축',
@@ -35,6 +37,7 @@ const experiences = [
     company: 'Zeniel',
     title: 'Zeniel ERP',
     role: '개발자',
+    type: '민간',
     period: '2023.04 - 2024.07',
     description: [
       '사용자/권한/메뉴 관리 등 시스템 공통 모듈 개발',
@@ -48,6 +51,7 @@ const experiences = [
     company: '한국가스안전공사',
     title: '가스안전공사 차세대 ERP',
     role: '개발자',
+    type: '공공기관',
     period: '2022.07 - 2023.03',
     description: [
       '인사-평가 시스템 전체 설계 및 개발 (주 담당)',
@@ -61,6 +65,7 @@ const experiences = [
     company: '한국철도공사',
     title: 'KORAIL ERP - 급여시스템',
     role: '개발자',
+    type: '공공기관',
     period: '2021.05 - 2022.04',
     description: [
       '전자정부 프레임워크 기반 급여 시스템 개발',
@@ -109,7 +114,18 @@ export default function Timeline() {
           {activeExp.role}{' '}
           <span className="text-accent">@ {activeExp.company}</span>
         </h3>
-        <p className="text-sm font-mono text-dev-slate mb-1">{activeExp.title}</p>
+        <div className="flex items-center gap-3 mb-1">
+          <p className="text-sm font-mono text-dev-slate">{activeExp.title}</p>
+          <span className={`text-xs font-mono px-2 py-0.5 rounded ${
+            activeExp.type === '공공기관'
+              ? 'bg-accent-tint text-accent'
+              : activeExp.type === '정부용역'
+                ? 'bg-blue-500/10 text-blue-400'
+                : 'bg-purple-500/10 text-purple-400'
+          }`}>
+            {activeExp.type}
+          </span>
+        </div>
         <p className="text-sm font-mono text-dev-slate mb-6">{activeExp.period}</p>
 
         <ul className="space-y-3">

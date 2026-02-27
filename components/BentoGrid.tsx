@@ -11,6 +11,7 @@ const careerProjects = [
     title: 'KORAIL ERP - 급여시스템',
     company: '한국철도공사',
     role: '개발자',
+    type: '공공기관',
     description:
       '전자정부 프레임워크 기반의 급여 시스템 신규 개발. 급여 계산, 수당 관리, 급여 명세서 등 급여 업무 전반의 화면과 기능을 구현하고 Tibero DB와 연동하여 급여 데이터를 관리했습니다.',
     tech: ['WebSquare', '전자정부 프레임워크', 'Tibero', 'JavaScript'],
@@ -28,6 +29,7 @@ const careerProjects = [
     title: '가스안전공사 차세대 ERP',
     company: '한국가스안전공사',
     role: '개발자',
+    type: '공공기관',
     description:
       '기존 ERP 시스템을 차세대 ERP로 전면 마이그레이션하는 프로젝트. 인사-평가 시스템을 주 담당으로 개발하고, 구 시스템의 데이터를 신규 시스템으로 무결성을 유지하며 이관했습니다.',
     tech: ['Nexacro', 'PowerMDD', 'Oracle'],
@@ -46,6 +48,7 @@ const careerProjects = [
     title: 'Zeniel ERP',
     company: 'Zeniel',
     role: '개발자',
+    type: '민간',
     description:
       '시스템/공통 모듈과 관리회계(경영관리) 시스템을 담당. 사용자/권한/메뉴 관리 등 시스템 공통 기능을 개발하고, 재무회계 데이터를 경영관리 관점으로 가공하여 조회하는 관리회계 시스템을 구축했습니다.',
     tech: ['WebSquare SP5', 'PostgreSQL', '전자정부 4.0'],
@@ -65,6 +68,7 @@ const careerProjects = [
     title: '노지 HD맵 프로젝트',
     company: '노지 HD Map',
     role: '개발자',
+    type: '정부용역',
     description:
       '드론이 촬영한 농지 영상을 업로드하고, 정사 처리하여 하나의 이미지로 합성한 뒤 식생지수(NDVI)를 조회할 수 있는 플랫폼. 시스템 구축부터 DB 관리, 영상 업로드, 식생지수 조회까지 전반을 담당했습니다.',
     tech: ['WebSquare SP5', 'PostgreSQL', '전자정부 4.0'],
@@ -81,8 +85,9 @@ const careerProjects = [
   {
     id: 5,
     title: '인천환경공단 ERP',
-    company: '인천광역시환경공단',
+    company: '인천환경공단',
     role: 'PL (프로젝트 리더)',
+    type: '공공기관',
     description:
       'PL(프로젝트 리더)로서 공통/시스템/인사-평가 분야를 총괄. SSO 연계, 전자결재 연동, 공통 모듈 등 시스템 전반의 아키텍처를 설계하고 팀원들의 개발을 리딩하고 있습니다.',
     tech: ['Nexacro', '전자정부', 'PostgreSQL'],
@@ -134,6 +139,7 @@ interface CareerProject {
   title: string
   company: string
   role: string
+  type: string
   description: string
   tech: string[]
   period: string
@@ -199,7 +205,18 @@ function FeaturedProject({
               : 'md:col-start-7 md:text-right'
           }`}
         >
-          <p className="text-accent font-mono text-xs mb-2">{project.role} @ {project.company}</p>
+          <div className="flex items-center gap-2 mb-2">
+            <p className="text-accent font-mono text-xs">{project.role} @ {project.company}</p>
+            <span className={`text-xs font-mono px-2 py-0.5 rounded ${
+              project.type === '공공기관'
+                ? 'bg-accent-tint text-accent'
+                : project.type === '정부용역'
+                  ? 'bg-blue-500/10 text-blue-400'
+                  : 'bg-purple-500/10 text-purple-400'
+            }`}>
+              {project.type}
+            </span>
+          </div>
           <h3 className="text-xl md:text-2xl font-bold text-lightest-slate mb-4 hover:text-accent transition-colors">
             {project.title}
           </h3>
