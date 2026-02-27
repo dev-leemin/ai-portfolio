@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Train, Flame, MapPin, Layers, Building2, ExternalLink, MessageCircleHeart, Dices } from 'lucide-react'
+import { ExternalLink, Github, Folder } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -11,16 +11,15 @@ const careerProjects = [
     title: 'KORAIL ERP - 급여시스템',
     company: '한국철도공사',
     role: '개발자',
-    description: '전자정부 프레임워크 기반의 급여 시스템 신규 개발. 급여 계산, 수당 관리, 급여 명세서 등 급여 업무 전반의 화면과 기능을 구현하고 Tibero DB와 연동하여 급여 데이터를 관리했습니다.',
-    icon: Train,
-    color: 'from-blue-500 to-cyan-500',
+    description:
+      '전자정부 프레임워크 기반의 급여 시스템 신규 개발. 급여 계산, 수당 관리, 급여 명세서 등 급여 업무 전반의 화면과 기능을 구현하고 Tibero DB와 연동하여 급여 데이터를 관리했습니다.',
     tech: ['WebSquare', '전자정부 프레임워크', 'Tibero', 'JavaScript'],
     period: '2021.05 - 2022.04',
     responsibilities: [
       '급여 계산/수당 관리 등 급여 업무 전반 화면 개발',
       'WebSquare 기반 UI 구현 및 사용자 인터랙션 처리',
       'Tibero DB 연동 쿼리 작성 및 데이터 관리',
-      '급여 명세서 조회/출력 기능 구현'
+      '급여 명세서 조회/출력 기능 구현',
     ],
     image: '/projects/korail.png',
   },
@@ -29,9 +28,8 @@ const careerProjects = [
     title: '가스안전공사 차세대 ERP',
     company: '한국가스안전공사',
     role: '개발자',
-    description: '기존 ERP 시스템을 차세대 ERP로 전면 마이그레이션하는 프로젝트. 인사-평가 시스템을 주 담당으로 개발하고, 구 시스템의 데이터를 신규 시스템으로 무결성을 유지하며 이관했습니다.',
-    icon: Flame,
-    color: 'from-orange-500 to-red-500',
+    description:
+      '기존 ERP 시스템을 차세대 ERP로 전면 마이그레이션하는 프로젝트. 인사-평가 시스템을 주 담당으로 개발하고, 구 시스템의 데이터를 신규 시스템으로 무결성을 유지하며 이관했습니다.',
     tech: ['Nexacro', 'PowerMDD', 'Oracle'],
     period: '2022.07 - 2023.03',
     responsibilities: [
@@ -39,7 +37,7 @@ const careerProjects = [
       '구 ERP → 차세대 ERP 데이터 마이그레이션 (무결성 보장)',
       '간이결재 시스템 관리 및 유지보수',
       '사용자 권한 관리 체계 구현',
-      '재무-회계 모듈 일부 개발 지원'
+      '재무-회계 모듈 일부 개발 지원',
     ],
     image: '/projects/gas.png',
   },
@@ -48,9 +46,8 @@ const careerProjects = [
     title: 'Zeniel ERP',
     company: 'Zeniel',
     role: '개발자',
-    description: '시스템/공통 모듈과 관리회계(경영관리) 시스템을 담당. 사용자/권한/메뉴 관리 등 시스템 공통 기능을 개발하고, 재무회계 데이터를 경영관리 관점으로 가공하여 조회하는 관리회계 시스템을 구축했습니다.',
-    icon: Layers,
-    color: 'from-purple-500 to-pink-500',
+    description:
+      '시스템/공통 모듈과 관리회계(경영관리) 시스템을 담당. 사용자/권한/메뉴 관리 등 시스템 공통 기능을 개발하고, 재무회계 데이터를 경영관리 관점으로 가공하여 조회하는 관리회계 시스템을 구축했습니다.',
     tech: ['WebSquare SP5', 'PostgreSQL', '전자정부 4.0'],
     period: '2023.04 - 2024.07',
     responsibilities: [
@@ -59,7 +56,7 @@ const careerProjects = [
       '그룹웨어 연동 (일정, 메일, 게시판 등)',
       '파일 업로드/다운로드 공통 모듈 구현',
       '오류사항 관리 시스템 개발',
-      '대사우 시스템 개발'
+      '대사우 시스템 개발',
     ],
     image: '/projects/zeniel.png',
   },
@@ -68,9 +65,8 @@ const careerProjects = [
     title: '노지 HD맵 프로젝트',
     company: '(프로젝트)',
     role: '개발자',
-    description: '드론이 촬영한 농지 영상을 업로드하고, 정사 처리하여 하나의 이미지로 합성한 뒤 식생지수(NDVI)를 조회할 수 있는 플랫폼. 시스템 구축부터 DB 관리, 영상 업로드, 식생지수 조회까지 전반을 담당했습니다.',
-    icon: MapPin,
-    color: 'from-green-500 to-emerald-500',
+    description:
+      '드론이 촬영한 농지 영상을 업로드하고, 정사 처리하여 하나의 이미지로 합성한 뒤 식생지수(NDVI)를 조회할 수 있는 플랫폼. 시스템 구축부터 DB 관리, 영상 업로드, 식생지수 조회까지 전반을 담당했습니다.',
     tech: ['WebSquare SP5', 'PostgreSQL', '전자정부 4.0'],
     period: '2024.11 - 2024.12',
     responsibilities: [
@@ -78,7 +74,7 @@ const careerProjects = [
       '드론 촬영 영상 업로드 및 관리 기능 개발',
       '정사 처리(Ortho) 후 이미지 합성 연동',
       '식생지수(NDVI) 조회 및 시각화 기능 구현',
-      'PostgreSQL 데이터베이스 설계 및 관리'
+      'PostgreSQL 데이터베이스 설계 및 관리',
     ],
     image: null,
   },
@@ -87,9 +83,8 @@ const careerProjects = [
     title: '인천환경공단 ERP',
     company: '인천광역시환경공단',
     role: 'PL (프로젝트 리더)',
-    description: 'PL(프로젝트 리더)로서 공통/시스템/인사-평가 분야를 총괄. SSO 연계, 전자결재 연동, 공통 모듈 등 시스템 전반의 아키텍처를 설계하고 팀원들의 개발을 리딩하고 있습니다.',
-    icon: Building2,
-    color: 'from-teal-500 to-cyan-500',
+    description:
+      'PL(프로젝트 리더)로서 공통/시스템/인사-평가 분야를 총괄. SSO 연계, 전자결재 연동, 공통 모듈 등 시스템 전반의 아키텍처를 설계하고 팀원들의 개발을 리딩하고 있습니다.',
     tech: ['Nexacro', '전자정부', 'PostgreSQL'],
     period: '2024.07 - 진행중',
     responsibilities: [
@@ -98,7 +93,7 @@ const careerProjects = [
       'Handy 전자결재 시스템 연동 개발',
       '공통 모듈(코드관리, 로그, 알림 등) 설계/개발',
       '인사-평가 시스템 개발',
-      '시스템 관리(사용자, 권한, 메뉴) 구현'
+      '시스템 관리(사용자, 권한, 메뉴) 구현',
     ],
     image: '/projects/incheon.png',
   },
@@ -108,344 +103,258 @@ const personalProjects = [
   {
     id: 6,
     title: '취뽀 (JobReady)',
-    company: '개인 프로젝트',
-    role: '풀스택 개발자',
-    description: 'AI 기반 취업 준비 SaaS 플랫폼. Groq LLM을 활용한 AI 모의면접 시스템으로 실전 면접을 대비하고, 자기소개 스크립트 생성기와 이력서/자소서 AI 작성 지원 기능을 제공합니다. NextAuth 기반 소셜 로그인과 사용자별 데이터 관리를 구현했습니다.',
-    icon: Layers,
-    color: 'from-indigo-500 to-purple-500',
-    tech: ['Next.js 16', 'React 19', 'Groq AI', 'Prisma', 'PostgreSQL', 'NextAuth', 'Tailwind CSS'],
-    period: '2026.01',
-    responsibilities: [
-      'Groq LLM API 연동 AI 모의면접 시스템 (질문 생성 → 답변 분석 → 피드백)',
-      '자기소개 스크립트 자동 생성기 구현',
-      '이력서/자소서 AI 작성 지원 및 첨삭 기능',
-      '사용자 온보딩 및 프로필 관리 시스템',
-      'NextAuth 소셜 로그인 (Google, Kakao)',
-      'Prisma ORM + Neon PostgreSQL 서버리스 DB 연동',
-      'Vercel 배포 및 운영'
-    ],
+    description:
+      'AI 기반 취업 준비 SaaS 플랫폼. Groq LLM을 활용한 AI 모의면접 시스템으로 실전 면접을 대비하고, 자기소개 스크립트 생성기와 이력서/자소서 AI 작성 지원 기능을 제공합니다.',
+    tech: ['Next.js 16', 'React 19', 'Groq AI', 'Prisma', 'PostgreSQL', 'NextAuth'],
     image: '/projects/jobready.png',
     url: 'https://job-ready-smlees-projects-96d0b73d.vercel.app',
   },
   {
     id: 7,
     title: '도란도란',
-    company: '개인 프로젝트',
-    role: '풀스택 개발자',
-    description: '성격 유형 테스트 기반 소셜 플랫폼. 직장인 캐릭터 테스트, 점심 취향 테스트 등 다양한 테스트를 제공하고, 방을 생성해 친구를 초대하면 1:1 궁합 분석과 그룹 궁합 랭킹을 확인할 수 있는 소셜 기능을 구현했습니다.',
-    icon: MessageCircleHeart,
-    color: 'from-pink-500 to-rose-500',
-    tech: ['Next.js 16', 'React 19', 'Prisma', 'PostgreSQL', 'NextAuth', 'Tailwind CSS'],
-    period: '2026.02',
-    responsibilities: [
-      '성격 유형 테스트 엔진 설계 및 구현 (직장인 캐릭터, 점심 취향 등)',
-      '방 생성 및 친구 초대 시스템 (비밀번호, QR코드, 링크 공유)',
-      '1:1 궁합 분석 알고리즘 및 그룹 궁합 랭킹 시스템',
-      '유형 분포 차트 시각화 구현',
-      '리뷰 및 리액션 시스템 개발',
-      'OAuth 소셜 로그인 (Google, Kakao)',
-      'Prisma ORM + Neon PostgreSQL 서버리스 DB 연동'
-    ],
+    description:
+      '성격 유형 테스트 기반 소셜 플랫폼. 직장인 캐릭터 테스트, 점심 취향 테스트 등 다양한 테스트를 제공하고, 방을 생성해 친구를 초대하면 1:1 궁합 분석과 그룹 궁합 랭킹을 확인할 수 있습니다.',
+    tech: ['Next.js 16', 'React 19', 'Prisma', 'PostgreSQL', 'NextAuth'],
     image: '/projects/doran.png',
     url: 'https://doran-orcin.vercel.app',
   },
   {
     id: 8,
     title: '내로또 - AI 로또 예측기',
-    company: '개인 프로젝트',
-    role: '풀스택 개발자',
-    description: 'AI 기반 로또 6/45 및 연금복권 720+ 번호 예측 서비스. 논문(arXiv:2403.12836) 기반 CDM 확률 모델과 백테스트 검증 공식을 적용하여 통계적으로 분석된 번호를 추천합니다. 과거 회차 당첨번호와의 비교 검증 기능도 제공합니다.',
-    icon: Dices,
-    color: 'from-yellow-500 to-orange-500',
-    tech: ['Next.js 16', 'React 19', 'Prisma', 'PostgreSQL', 'ml-regression', 'Tailwind CSS'],
-    period: '2026.02',
-    responsibilities: [
-      'CDM 확률 모델 기반 번호 예측 시스템 (빈도, 포아송 분포, 트렌드 분석)',
-      '전체 회차 역추적 백테스트 검증 시스템 구현',
-      '로또 6/45 + 연금복권 720+ 이중 분석 시스템',
-      '스마트 랜덤 생성기 (홀짝/고저/합계/번호대 균형 조건)',
-      '과거 회차 당첨번호 비교 및 적중률 시각화',
-      'Google AdSense 광고 연동 및 수익화',
-      'Vercel 배포, SEO 최적화, Google Search Console 등록'
-    ],
+    description:
+      'AI 기반 로또 6/45 및 연금복권 720+ 번호 예측 서비스. 논문 기반 CDM 확률 모델과 백테스트 검증 공식을 적용하여 통계적으로 분석된 번호를 추천합니다.',
+    tech: ['Next.js 16', 'React 19', 'Prisma', 'PostgreSQL', 'ml-regression'],
     image: '/projects/lotto.png',
     url: 'https://lotto-predictor-two.vercel.app',
   },
 ]
 
-interface Project {
+interface CareerProject {
   id: number
   title: string
   company: string
   role: string
   description: string
-  icon: React.ComponentType<{ className?: string }>
-  color: string
   tech: string[]
   period: string
   responsibilities: string[]
   image: string | null
-  url?: string
 }
 
-function ProjectCard({
+function FeaturedProject({
   project,
   index,
-  imageErrors,
-  expandedProjects,
-  onImageError,
-  onToggleExpanded,
-  onOpenImage,
+  reversed,
 }: {
-  project: Project
+  project: CareerProject
   index: number
-  imageErrors: Record<number, boolean>
-  expandedProjects: Record<number, boolean>
-  onImageError: (id: number) => void
-  onToggleExpanded: (id: number) => void
-  onOpenImage: (src: string, title: string) => void
+  reversed: boolean
 }) {
-  return (
-    <motion.div
-      key={project.id}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-slate-600 transition-all"
-    >
-      {/* 헤더 */}
-      <div className="flex items-start gap-4 mb-4">
-        <div
-          className={`w-12 h-12 rounded-lg bg-gradient-to-br ${project.color} flex items-center justify-center flex-shrink-0`}
-        >
-          <project.icon className="w-6 h-6 text-white" />
-        </div>
-        <div className="flex-1">
-          <h3 className="text-lg font-bold text-white mb-1">{project.title}</h3>
-          <div className="flex items-center gap-2 text-sm text-slate-400">
-            <span>{project.company}</span>
-            <span>•</span>
-            <span className="text-blue-400">{project.role}</span>
-          </div>
-          <p className="text-xs text-slate-500 mt-1">{project.period}</p>
-        </div>
-      </div>
-
-      {/* 설명 */}
-      <p className="text-sm text-slate-300 mb-4">{project.description}</p>
-
-      {/* 프로젝트 이미지 */}
-      <div className="mb-4 h-48 bg-slate-900/50 rounded-lg border border-slate-700 overflow-hidden relative group">
-        {project.image && !imageErrors[project.id] ? (
-          <>
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
-              onError={() => onImageError(project.id)}
-            />
-            <button
-              onClick={() => onOpenImage(project.image!, project.title)}
-              className="absolute inset-0 bg-black/0 hover:bg-black/40 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100"
-            >
-              <span className="text-white text-sm font-semibold bg-slate-900/80 px-4 py-2 rounded-lg">
-                클릭하여 확대
-              </span>
-            </button>
-          </>
-        ) : (
-          <div className="h-full flex items-center justify-center">
-            <p className="text-slate-500 text-sm">
-              {project.image ? '이미지 로딩 중...' : '이미지 준비중'}
-            </p>
-          </div>
-        )}
-      </div>
-
-      {/* 주요 업무 */}
-      <div className="mb-4">
-        <h4 className="text-xs text-slate-500 uppercase tracking-wider mb-2">주요 업무</h4>
-        <ul className="space-y-1">
-          {(expandedProjects[project.id]
-            ? project.responsibilities
-            : project.responsibilities.slice(0, 3)
-          ).map((task, idx) => (
-            <li key={idx} className="text-sm text-slate-400 flex items-start gap-2">
-              <span className="text-blue-400 mt-1">•</span>
-              <span>{task}</span>
-            </li>
-          ))}
-          {project.responsibilities.length > 3 && (
-            <li>
-              <button
-                onClick={() => onToggleExpanded(project.id)}
-                className="text-sm text-blue-400 hover:text-blue-300 transition-colors mt-1"
-              >
-                {expandedProjects[project.id]
-                  ? '접기'
-                  : `+${project.responsibilities.length - 3}개 업무 더보기`}
-              </button>
-            </li>
-          )}
-        </ul>
-      </div>
-
-      {/* 기술 스택 */}
-      <div>
-        <h4 className="text-xs text-slate-500 uppercase tracking-wider mb-2">Tech Stack</h4>
-        <div className="flex flex-wrap gap-2">
-          {project.tech.map((tech) => (
-            <span
-              key={tech}
-              className="text-xs px-2 py-1 bg-slate-700/50 text-slate-300 rounded"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* URL 링크 */}
-      {project.url && (
-        <div className="mt-4 pt-4 border-t border-slate-700">
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm font-medium rounded-lg hover:from-indigo-600 hover:to-purple-600 transition-all"
-          >
-            <ExternalLink className="w-4 h-4" />
-            서비스 바로가기
-          </a>
-        </div>
-      )}
-    </motion.div>
-  )
-}
-
-/**
- * 프로젝트 카드 그리드 - 경력 프로젝트 / 개인 프로젝트 분리
- */
-export default function BentoGrid() {
-  const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({})
-  const [expandedProjects, setExpandedProjects] = useState<Record<number, boolean>>({})
-  const [selectedImage, setSelectedImage] = useState<{ src: string; title: string } | null>(null)
-
-  const handleImageError = (projectId: number) => {
-    setImageErrors(prev => ({ ...prev, [projectId]: true }))
-  }
-
-  const toggleExpanded = (projectId: number) => {
-    setExpandedProjects(prev => ({ ...prev, [projectId]: !prev[projectId] }))
-  }
-
-  const openImageModal = (src: string, title: string) => {
-    setSelectedImage({ src, title })
-  }
-
-  const closeImageModal = () => {
-    setSelectedImage(null)
-  }
+  const [imgError, setImgError] = useState(false)
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
   return (
     <>
-      {/* 경력 프로젝트 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {careerProjects.map((project, index) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            index={index}
-            imageErrors={imageErrors}
-            expandedProjects={expandedProjects}
-            onImageError={handleImageError}
-            onToggleExpanded={toggleExpanded}
-            onOpenImage={openImageModal}
-          />
-        ))}
-      </div>
-
-      {/* 개인 프로젝트 섹션 */}
-      <div className="mt-20">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.1 }}
+        className="relative grid md:grid-cols-12 gap-2 items-center mb-24 last:mb-0"
+      >
+        {/* Image */}
+        <div
+          className={`md:col-span-7 relative ${
+            reversed ? 'md:col-start-6 md:row-start-1' : ''
+          }`}
         >
-          <h3 className="text-3xl md:text-4xl font-bold text-white mb-3">개인 프로젝트</h3>
-          <p className="text-slate-400">Next.js & React 기반 풀스택 사이드 프로젝트</p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {personalProjects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-              imageErrors={imageErrors}
-              expandedProjects={expandedProjects}
-              onImageError={handleImageError}
-              onToggleExpanded={toggleExpanded}
-              onOpenImage={openImageModal}
-            />
-          ))}
+          <div
+            className="relative aspect-video bg-navy-light rounded overflow-hidden group cursor-pointer"
+            onClick={() => {
+              if (project.image && !imgError) setSelectedImage(project.image)
+            }}
+          >
+            <div className="absolute inset-0 bg-accent/10 group-hover:bg-transparent transition-colors duration-300 z-10" />
+            {project.image && !imgError ? (
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover mix-blend-multiply group-hover:mix-blend-normal transition-all duration-300 grayscale group-hover:grayscale-0"
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className="h-full flex items-center justify-center text-dev-slate text-sm font-mono">
+                {project.image ? 'Loading...' : 'No Preview'}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* 이미지 확대 모달 */}
+        {/* Content */}
+        <div
+          className={`md:col-span-6 md:row-start-1 relative z-10 ${
+            reversed
+              ? 'md:col-start-1 md:text-left'
+              : 'md:col-start-7 md:text-right'
+          }`}
+        >
+          <p className="text-accent font-mono text-xs mb-2">{project.role} @ {project.company}</p>
+          <h3 className="text-xl md:text-2xl font-bold text-lightest-slate mb-4 hover:text-accent transition-colors">
+            {project.title}
+          </h3>
+
+          <div className="bg-navy-light rounded-lg p-5 md:p-6 mb-4 shadow-xl">
+            <p className="text-sm leading-relaxed text-slate-light">{project.description}</p>
+          </div>
+
+          <div className={`flex flex-wrap gap-2 mb-3 text-xs font-mono ${reversed ? '' : 'md:justify-end'}`}>
+            <span className="text-dev-slate">{project.period}</span>
+          </div>
+
+          <div className={`flex flex-wrap gap-2 mb-4 text-xs font-mono ${reversed ? '' : 'md:justify-end'}`}>
+            {project.tech.map((t) => (
+              <span key={t} className="text-slate-light">{t}</span>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Image Modal */}
       {selectedImage && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={closeImageModal}
+          onClick={() => setSelectedImage(null)}
         >
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            className="relative max-w-6xl w-full"
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            className="relative max-w-5xl w-full"
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              onClick={closeImageModal}
-              className="absolute -top-12 right-0 text-white hover:text-slate-300 transition-colors"
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-10 right-0 text-lightest-slate hover:text-accent transition-colors font-mono text-sm"
             >
-              <svg
-                className="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              Close [ESC]
             </button>
-
-            <div className="relative w-full aspect-video bg-slate-900 rounded-xl overflow-hidden border border-slate-700">
+            <div className="relative w-full aspect-video bg-navy-light rounded overflow-hidden border border-navy-lighter">
               <Image
-                src={selectedImage.src}
-                alt={selectedImage.title}
+                src={selectedImage}
+                alt="Project preview"
                 fill
                 className="object-contain"
               />
             </div>
-
-            <p className="text-center text-white mt-4 text-lg font-semibold">
-              {selectedImage.title}
-            </p>
           </motion.div>
         </motion.div>
       )}
     </>
+  )
+}
+
+function PersonalProjectCard({
+  project,
+  index,
+}: {
+  project: (typeof personalProjects)[0]
+  index: number
+}) {
+  const [imgError, setImgError] = useState(false)
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+      className="bg-navy-light rounded-lg overflow-hidden group hover:translate-y-[-4px] transition-all duration-300 flex flex-col"
+    >
+      {/* Image */}
+      {project.image && !imgError ? (
+        <div className="relative aspect-video overflow-hidden">
+          <div className="absolute inset-0 bg-accent/5 group-hover:bg-transparent transition-colors duration-300 z-10" />
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+            onError={() => setImgError(true)}
+          />
+        </div>
+      ) : null}
+
+      {/* Content */}
+      <div className="p-6 flex-1 flex flex-col">
+        <div className="flex items-center justify-between mb-4">
+          <Folder className="w-10 h-10 text-accent" />
+          <div className="flex items-center gap-3">
+            {project.url && (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-light hover:text-accent transition-colors"
+              >
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            )}
+          </div>
+        </div>
+
+        <h3 className="text-lg font-bold text-lightest-slate mb-3 group-hover:text-accent transition-colors">
+          {project.url ? (
+            <a href={project.url} target="_blank" rel="noopener noreferrer">
+              {project.title}
+            </a>
+          ) : (
+            project.title
+          )}
+        </h3>
+
+        <p className="text-sm leading-relaxed flex-1 mb-4">{project.description}</p>
+
+        <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs font-mono text-dev-slate">
+          {project.tech.map((t) => (
+            <span key={t}>{t}</span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+export default function BentoGrid() {
+  return (
+    <div>
+      {/* Career Projects - Featured */}
+      <div className="mb-16">
+        <p className="text-accent font-mono text-sm mb-8">경력 프로젝트</p>
+        {careerProjects.map((project, index) => (
+          <FeaturedProject
+            key={project.id}
+            project={project}
+            index={index}
+            reversed={index % 2 !== 0}
+          />
+        ))}
+      </div>
+
+      {/* Personal Projects */}
+      <div>
+        <p className="text-accent font-mono text-sm mb-2">개인 프로젝트</p>
+        <h3 className="text-2xl font-bold text-lightest-slate mb-8">
+          Other Noteworthy Projects
+        </h3>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {personalProjects.map((project, index) => (
+            <PersonalProjectCard key={project.id} project={project} index={index} />
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }

@@ -4,100 +4,91 @@ import { motion } from 'framer-motion'
 
 const techCategories = [
   {
-    category: 'Frontend Framework',
+    category: 'Frontend',
     skills: [
-      { name: 'WebSquare SP5', level: 95, experience: '4년' },
-      { name: 'Nexacro', level: 90, experience: '2년' },
-      { name: 'JavaScript', level: 85, experience: '4년' },
+      { name: 'WebSquare SP5', experience: '4년' },
+      { name: 'Nexacro', experience: '2년' },
+      { name: 'JavaScript', experience: '4년' },
+      { name: 'Next.js / React', experience: '학습중' },
+      { name: 'TypeScript', experience: '학습중' },
+      { name: 'Tailwind CSS', experience: '학습중' },
     ],
   },
   {
-    category: 'Backend & Framework',
+    category: 'Backend',
     skills: [
-      { name: 'Java', level: 85, experience: '4년' },
-      { name: '전자정부 프레임워크', level: 90, experience: '4년' },
-      { name: 'PowerMDD', level: 70, experience: '1년' },
+      { name: 'Java', experience: '4년' },
+      { name: '전자정부 프레임워크', experience: '4년' },
+      { name: 'PowerMDD', experience: '1년' },
+      { name: 'Prisma ORM', experience: '학습중' },
     ],
   },
   {
     category: 'Database',
     skills: [
-      { name: 'PostgreSQL', level: 85, experience: '3년' },
-      { name: 'Oracle', level: 80, experience: '3년' },
-      { name: 'Tibero', level: 70, experience: '1년' },
+      { name: 'PostgreSQL', experience: '3년' },
+      { name: 'Oracle', experience: '3년' },
+      { name: 'Tibero', experience: '1년' },
+      { name: 'Neon Serverless', experience: '학습중' },
     ],
   },
   {
-    category: 'Integration & Others',
+    category: 'Integration',
     skills: [
-      { name: 'SSO 연계', level: 80, experience: '1년' },
-      { name: '전자결재 시스템', level: 75, experience: '2년' },
-      { name: '그룹웨어 연동', level: 75, experience: '1년' },
+      { name: 'SSO 연계', experience: '1년' },
+      { name: '전자결재 시스템', experience: '2년' },
+      { name: '그룹웨어 연동', experience: '1년' },
     ],
   },
   {
-    category: 'Server & Deployment',
+    category: 'Server & Infra',
     skills: [
-      { name: 'Nginx', level: 75, experience: '3년' },
-      { name: 'Tomcat', level: 80, experience: '4년' },
-      { name: 'Apache', level: 70, experience: '2년' },
-      { name: 'JMeter', level: 70, experience: '2년' },
+      { name: 'Nginx', experience: '3년' },
+      { name: 'Tomcat', experience: '4년' },
+      { name: 'Apache', experience: '2년' },
+      { name: 'Vercel', experience: '학습중' },
+    ],
+  },
+  {
+    category: 'Tools & Others',
+    skills: [
+      { name: 'Git', experience: '4년' },
+      { name: 'JMeter', experience: '2년' },
+      { name: 'AI/ML (Groq, Claude)', experience: '학습중' },
     ],
   },
 ]
 
 export default function TechStack() {
   return (
-    <section className="px-6 py-16 bg-slate-900/30">
-      <div className="max-w-7xl mx-auto">
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {techCategories.map((category, categoryIndex) => (
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          key={category.category}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          transition={{ delay: categoryIndex * 0.08 }}
+          className="bg-navy-light border border-navy-lighter rounded-lg p-6 hover:border-accent/30 transition-colors"
         >
-          <h3 className="text-3xl font-bold text-white mb-3">기술 스택</h3>
-          <p className="text-slate-400">4년간 축적한 공공기관 ERP 개발 기술</p>
+          <h4 className="text-accent font-mono text-sm mb-5">
+            {`// ${category.category}`}
+          </h4>
+
+          <ul className="space-y-3">
+            {category.skills.map((skill) => (
+              <li key={skill.name} className="flex items-center justify-between">
+                <span className="text-slate-light text-sm">{skill.name}</span>
+                <span className={`text-xs font-mono ${
+                  skill.experience === '학습중' ? 'text-accent' : 'text-dev-slate'
+                }`}>
+                  {skill.experience}
+                </span>
+              </li>
+            ))}
+          </ul>
         </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {techCategories.map((category, categoryIndex) => (
-            <motion.div
-              key={category.category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: categoryIndex * 0.1 }}
-              className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6"
-            >
-              <h4 className="text-lg font-bold text-white mb-6">{category.category}</h4>
-
-              <div className="space-y-6">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skill.name}>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-slate-300">{skill.name}</span>
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs text-slate-500">{skill.experience}</span>
-                        <span className="text-xs font-bold text-blue-400">{skill.level}%</span>
-                      </div>
-                    </div>
-                    <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.1, duration: 0.8 }}
-                        className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
+      ))}
+    </div>
   )
 }

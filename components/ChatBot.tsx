@@ -16,15 +16,6 @@ interface ChatBotProps {
   onClose: () => void
 }
 
-/**
- * AI 챗봇 컴포넌트 - Groq API 연동
- *
- * 보안 고려사항:
- * 1. 입력값 sanitization (XSS 방지)
- * 2. 최대 길이 제한 (DoS 방지)
- * 3. Server-side Rate limiting (API route에서 처리)
- * 4. 스트리밍 응답으로 빠른 사용자 경험
- */
 export default function ChatBot({ onClose }: ChatBotProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -41,17 +32,14 @@ export default function ChatBot({ onClose }: ChatBotProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
 
-  // 메시지 자동 스크롤
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, streamingMessage])
 
-  // 자동 포커스
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
 
-  // 컴포넌트 언마운트 시 스트리밍 중단
   useEffect(() => {
     return () => {
       abortControllerRef.current?.abort()
@@ -61,12 +49,9 @@ export default function ChatBot({ onClose }: ChatBotProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // 입력값 검증 및 sanitization
     const sanitizedInput = sanitizeInput(input, 500)
-
     if (!sanitizedInput.trim() || isTyping) return
 
-    // 사용자 메시지 추가
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
@@ -79,20 +64,16 @@ export default function ChatBot({ onClose }: ChatBotProps) {
     setIsTyping(true)
     setStreamingMessage('')
 
-    // 이전 요청 취소
     abortControllerRef.current?.abort()
     abortControllerRef.current = new AbortController()
 
     try {
-      // API 호출
       const response = await fetch('/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: sanitizedInput,
-          conversationHistory: messages.slice(-10), // 최근 10개만 전송
+          conversationHistory: messages.slice(-10),
         }),
         signal: abortControllerRef.current.signal,
       })
@@ -102,7 +83,6 @@ export default function ChatBot({ onClose }: ChatBotProps) {
         throw new Error(error.error || 'Failed to fetch response')
       }
 
-      // 스트리밍 응답 처리
       const reader = response.body?.getReader()
       const decoder = new TextDecoder()
       let accumulatedContent = ''
@@ -119,9 +99,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
         for (const line of lines) {
           if (line.startsWith('data: ')) {
             const data = line.slice(6)
-
             if (data === '[DONE]') {
-              // 스트리밍 완료 - 최종 메시지 저장
               const botMessage: Message = {
                 id: (Date.now() + 1).toString(),
                 role: 'assistant',
@@ -140,16 +118,14 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                 accumulatedContent += parsed.content
                 setStreamingMessage(accumulatedContent)
               }
-            } catch (e) {
-              // JSON 파싱 오류 무시
+            } catch {
+              // ignore parse errors
             }
           }
         }
       }
     } catch (error: any) {
       console.error('Chat error:', error)
-
-      // 에러 메시지 표시
       if (error.name !== 'AbortError') {
         const errorMessage: Message = {
           id: (Date.now() + 1).toString(),
@@ -159,18 +135,14 @@ export default function ChatBot({ onClose }: ChatBotProps) {
         }
         setMessages((prev) => [...prev, errorMessage])
       }
-
       setIsTyping(false)
       setStreamingMessage('')
     }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 실시간 입력값 제한 (500자)
     const value = e.target.value
-    if (value.length <= 500) {
-      setInput(value)
-    }
+    if (value.length <= 500) setInput(value)
   }
 
   return (
@@ -178,33 +150,33 @@ export default function ChatBot({ onClose }: ChatBotProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
+        initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        className="bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-2xl h-[600px] flex flex-col"
+        exit={{ scale: 0.95, opacity: 0 }}
+        className="bg-navy-light border border-navy-lighter rounded-lg shadow-2xl w-full max-w-2xl h-[600px] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-700">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-navy-lighter">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-              <Bot className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 rounded bg-accent/10 flex items-center justify-center">
+              <Bot className="w-4 h-4 text-accent" />
             </div>
             <div>
-              <h3 className="font-semibold text-white">AI 어시스턴트</h3>
-              <p className="text-xs text-slate-400">Groq LLaMA 3.3 70B</p>
+              <h3 className="font-semibold text-lightest-slate text-sm">AI Assistant</h3>
+              <p className="text-xs text-dev-slate font-mono">Claude Haiku 4.5</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full hover:bg-slate-800 flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded hover:bg-navy-lighter flex items-center justify-center transition-colors"
             aria-label="채팅 닫기"
           >
-            <X className="w-5 h-5 text-slate-400" />
+            <X className="w-4 h-4 text-dev-slate" />
           </button>
         </div>
 
@@ -218,33 +190,31 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                 animate={{ opacity: 1, y: 0 }}
                 className={`flex gap-3 ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
               >
-                {/* Avatar */}
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  className={`w-7 h-7 rounded flex items-center justify-center flex-shrink-0 ${
                     message.role === 'assistant'
-                      ? 'bg-gradient-to-r from-blue-500 to-purple-600'
-                      : 'bg-slate-700'
+                      ? 'bg-accent/10'
+                      : 'bg-navy-lighter'
                   }`}
                 >
                   {message.role === 'assistant' ? (
-                    <Bot className="w-4 h-4 text-white" />
+                    <Bot className="w-3.5 h-3.5 text-accent" />
                   ) : (
-                    <User className="w-4 h-4 text-white" />
+                    <User className="w-3.5 h-3.5 text-slate-light" />
                   )}
                 </div>
 
-                {/* Message Bubble */}
                 <div
-                  className={`max-w-[70%] rounded-2xl px-4 py-2 ${
+                  className={`max-w-[75%] rounded-lg px-4 py-3 ${
                     message.role === 'assistant'
-                      ? 'bg-slate-800 text-white'
-                      : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
+                      ? 'bg-navy border border-navy-lighter text-slate-light'
+                      : 'bg-accent/10 border border-accent/20 text-lightest-slate'
                   }`}
                 >
-                  <p className="text-sm whitespace-pre-wrap break-words">
+                  <p className="text-sm whitespace-pre-wrap break-words leading-relaxed">
                     {message.content}
                   </p>
-                  <p className="text-xs opacity-60 mt-1">
+                  <p className="text-xs text-dev-slate mt-2 font-mono">
                     {message.timestamp.toLocaleTimeString('ko-KR', {
                       hour: '2-digit',
                       minute: '2-digit',
@@ -255,47 +225,33 @@ export default function ChatBot({ onClose }: ChatBotProps) {
             ))}
           </AnimatePresence>
 
-          {/* Streaming Message */}
           {streamingMessage && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="flex gap-3"
-            >
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                <Bot className="w-4 h-4 text-white" />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3">
+              <div className="w-7 h-7 rounded bg-accent/10 flex items-center justify-center">
+                <Bot className="w-3.5 h-3.5 text-accent" />
               </div>
-              <div className="max-w-[70%] bg-slate-800 rounded-2xl px-4 py-2">
-                <p className="text-sm text-white whitespace-pre-wrap break-words">
+              <div className="max-w-[75%] bg-navy border border-navy-lighter rounded-lg px-4 py-3">
+                <p className="text-sm text-slate-light whitespace-pre-wrap break-words leading-relaxed">
                   {streamingMessage}
-                  <span className="inline-block w-1 h-4 bg-blue-500 ml-1 animate-pulse" />
+                  <span className="inline-block w-0.5 h-4 bg-accent ml-1 animate-pulse" />
                 </p>
               </div>
             </motion.div>
           )}
 
-          {/* Typing Indicator */}
           {isTyping && !streamingMessage && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="flex gap-3"
-            >
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                <Bot className="w-4 h-4 text-white" />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3">
+              <div className="w-7 h-7 rounded bg-accent/10 flex items-center justify-center">
+                <Bot className="w-3.5 h-3.5 text-accent" />
               </div>
-              <div className="bg-slate-800 rounded-2xl px-4 py-3">
-                <div className="flex gap-1">
+              <div className="bg-navy border border-navy-lighter rounded-lg px-4 py-3">
+                <div className="flex gap-1.5">
                   {[0, 1, 2].map((i) => (
                     <motion.div
                       key={i}
-                      className="w-2 h-2 bg-slate-400 rounded-full"
-                      animate={{ y: [0, -8, 0] }}
-                      transition={{
-                        duration: 0.6,
-                        repeat: Infinity,
-                        delay: i * 0.2,
-                      }}
+                      className="w-1.5 h-1.5 bg-accent/60 rounded-full"
+                      animate={{ y: [0, -6, 0] }}
+                      transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
                     />
                   ))}
                 </div>
@@ -307,7 +263,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
         </div>
 
         {/* Input */}
-        <form onSubmit={handleSubmit} className="p-4 border-t border-slate-700">
+        <form onSubmit={handleSubmit} className="p-4 border-t border-navy-lighter">
           <div className="flex gap-2">
             <input
               ref={inputRef}
@@ -315,21 +271,21 @@ export default function ChatBot({ onClose }: ChatBotProps) {
               value={input}
               onChange={handleInputChange}
               placeholder="메시지를 입력하세요..."
-              className="flex-1 bg-slate-800 border border-slate-700 rounded-full px-4 py-2 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 bg-navy border border-navy-lighter rounded-lg px-4 py-2.5 text-sm text-lightest-slate placeholder-dev-slate focus:outline-none focus:border-accent/50 transition-colors"
               maxLength={500}
               disabled={isTyping}
             />
             <button
               type="submit"
               disabled={!input.trim() || isTyping}
-              className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-blue-500/50 transition-shadow"
+              className="px-4 py-2.5 bg-accent/10 border border-accent/30 text-accent rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-accent/20 transition-colors"
               aria-label="메시지 전송"
             >
-              <Send className="w-4 h-4 text-white" />
+              <Send className="w-4 h-4" />
             </button>
           </div>
-          <p className="text-xs text-slate-500 mt-2">
-            {input.length}/500 {isTyping && '• AI가 응답 중...'}
+          <p className="text-xs text-dev-slate mt-2 font-mono">
+            {input.length}/500 {isTyping && '· responding...'}
           </p>
         </form>
       </motion.div>
