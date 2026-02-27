@@ -213,8 +213,31 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Profile Card */}
+              {/* Profile Photo & Cards */}
               <div className="space-y-4">
+                {/* Profile Photo */}
+                <div className="relative group">
+                  <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-navy-light border-2 border-navy-lighter group-hover:border-accent/50 transition-colors">
+                    {/* Placeholder - 사진 추가 시 Image 컴포넌트로 교체 */}
+                    <div className="w-full h-full flex flex-col items-center justify-center text-dev-slate">
+                      <svg className="w-16 h-16 mb-2 text-navy-lighter" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                      </svg>
+                      <span className="text-xs font-mono text-dev-slate">photo</span>
+                    </div>
+                    {/* 사진 추가 시 아래 주석 해제
+                    <Image
+                      src="/profile.jpg"
+                      alt="이상민"
+                      fill
+                      className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-300"
+                    />
+                    */}
+                  </div>
+                  {/* Green overlay border effect */}
+                  <div className="absolute -inset-0 border-2 border-accent/30 rounded-lg translate-x-3 translate-y-3 -z-10 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform" />
+                </div>
+
                 <div className="bg-navy-light border border-navy-lighter rounded-lg p-5 hover:border-accent/30 transition-colors">
                   <p className="text-accent font-mono text-xs mb-3">// certifications</p>
                   <h4 className="text-lightest-slate font-semibold mb-1">정보처리기사</h4>
