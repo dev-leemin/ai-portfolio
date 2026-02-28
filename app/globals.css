@@ -120,17 +120,28 @@ img.protected {
     line-height: 1.4 !important;
   }
 
-  .resume-page {
+  .resume-page,
+  .portfolio-page {
     background: white !important;
   }
 
-  .resume-page main {
+  .resume-page main,
+  .portfolio-page main {
     max-width: none !important;
     padding: 0 !important;
     margin: 0 !important;
   }
 
-  .resume-page section {
+  .resume-page section,
+  .portfolio-page section {
+    break-inside: avoid;
+  }
+
+  .print\:break-before-page {
+    break-before: page;
+  }
+
+  .print\:break-inside-avoid {
     break-inside: avoid;
   }
 

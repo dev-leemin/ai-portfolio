@@ -25,6 +25,7 @@ const navItems = [
   { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
   { label: 'Resume', href: '/resume' },
+  { label: 'Portfolio', href: '/portfolio' },
 ]
 
 const stats = [
@@ -188,6 +189,23 @@ export default function Home() {
         {/* Hero Section */}
         <section className="min-h-screen flex items-center px-6 md:px-12 max-w-6xl mx-auto">
           <div className="w-full">
+            {/* Keyword Tags */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="flex items-center gap-2 mb-5 font-mono text-xs"
+            >
+              {['ERP 전문', '문제해결', '신입→PL'].map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 border border-accent/40 text-accent rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </motion.div>
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -210,10 +228,21 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-3xl md:text-5xl font-bold text-dev-slate mb-8"
+              className="text-3xl md:text-5xl font-bold text-dev-slate mb-4"
             >
-              공공기관 ERP를 만듭니다.
+              모르는 분야도 맡으면 해냅니다.
             </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45 }}
+              className="text-slate-light text-base md:text-lg max-w-xl mb-8 leading-relaxed"
+            >
+              세법도 회계도 몰랐지만 배워서 구현했고,
+              신입사원에서 시작해 9명 팀의 PL이 되었습니다.
+              전 프로젝트 배포 후 이슈 제로.
+            </motion.p>
 
             {/* Terminal-style code block */}
             <motion.div
@@ -335,23 +364,24 @@ export default function Home() {
             <div className="grid md:grid-cols-3 gap-12">
               <div className="md:col-span-2 space-y-4">
                 <p className="text-base leading-relaxed">
-                  4년 이상의{' '}
-                  <span className="text-lightest-slate">공공기관 ERP 시스템 구축 경험</span>을
-                  보유한 개발자입니다. 한국철도공사 급여시스템을 시작으로, 가스안전공사 차세대
-                  ERP 마이그레이션, Zeniel ERP 관리회계 시스템, 인천환경공단 ERP까지
-                  다양한 대형 프로젝트를 수행해왔습니다.
+                  첫 프로젝트에서{' '}
+                  <span className="text-lightest-slate">소득세법도 급여계산법도 몰랐습니다.</span>{' '}
+                  하지만 세법을 독학하고, 고객사 급여 체계를 분석해서 한국철도공사 급여시스템을
+                  완성했습니다. 이후로도 회계 전표, 관리회계, 인사평가 — 모르는 도메인을
+                  만날 때마다 같은 방식으로 해결해왔습니다.
                 </p>
                 <p className="text-base leading-relaxed">
-                  인사-평가, 시스템/공통, 관리회계, 권한관리 등{' '}
-                  <span className="text-lightest-slate">ERP의 핵심 모듈을 직접 설계하고 개발</span>한
-                  경험이 있으며, SSO 연계, 전자결재 연동, 그룹웨어 통합 등 외부 시스템
-                  연동까지 폭넓은 영역을 담당해왔습니다.
+                  4년간 공공기관·민간 ERP를 5개 프로젝트 거치며{' '}
+                  <span className="text-lightest-slate">전 프로젝트 배포 후 이슈 제로</span>를
+                  유지하고 있습니다. 급여 프로시저 3분→12초 튜닝, 약 10,000명 사용자
+                  대상 서비스 운영, 공통팀 이탈 시 내부결제 로직 재설계까지 —
+                  맡은 일은 끝까지 해결하는 게 제 방식입니다.
                 </p>
                 <p className="text-base leading-relaxed">
-                  현재는 인천환경공단 ERP 프로젝트에서{' '}
-                  <span className="text-accent">PL(프로젝트 리더)</span>로서 9명의 팀을
-                  이끌고 있으며, 업무 외 시간에는 Next.js와 React를 활용한
-                  개인 프로젝트를 통해 모던 웹 기술 역량을 확장하고 있습니다.
+                  현재는 인천환경공단 ERP에서{' '}
+                  <span className="text-accent">PL로 9명 팀을 이끌고</span> 있고,
+                  퇴근 후에는 Next.js로 AI 기반 서비스를 만들며
+                  새로운 기술 스택을 확장하고 있습니다.
                 </p>
 
                 {/* Growth Path */}
