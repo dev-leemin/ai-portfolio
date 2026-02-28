@@ -5,11 +5,13 @@ import { motion } from 'framer-motion'
 import {
   Bot,
   Github,
-  Linkedin,
   Mail,
   ArrowRight,
   Terminal,
+  Menu,
+  X,
 } from 'lucide-react'
+import Image from 'next/image'
 import ChatBot from '@/components/ChatBot'
 import BentoGrid from '@/components/BentoGrid'
 import TechStack from '@/components/TechStack'
@@ -33,11 +35,41 @@ const stats = [
 export default function Home() {
   const [showChat, setShowChat] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Right-click prevention
+  useEffect(() => {
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault()
+    }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Block F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+        (e.ctrlKey && e.key === 'u')
+      ) {
+        e.preventDefault()
+      }
+    }
+    const handleDragStart = (e: DragEvent) => {
+      e.preventDefault()
+    }
+
+    document.addEventListener('contextmenu', handleContextMenu)
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('dragstart', handleDragStart)
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu)
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('dragstart', handleDragStart)
+    }
   }, [])
 
   return (
@@ -86,12 +118,45 @@ export default function Home() {
           </div>
 
           <button
-            onClick={() => setShowChat(true)}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden text-accent"
+            aria-label="메뉴"
           >
-            <Bot className="w-5 h-5" />
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </nav>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="md:hidden bg-navy-light/95 backdrop-blur-md border-b border-navy-lighter"
+          >
+            <div className="flex flex-col items-center gap-4 py-6">
+              {navItems.map((item, i) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-slate-light text-sm hover:text-accent transition-colors font-mono"
+                >
+                  <span className="text-accent text-xs">0{i + 1}.</span>{' '}
+                  {item.label}
+                </a>
+              ))}
+              <button
+                onClick={() => {
+                  setShowChat(true)
+                  setMobileMenuOpen(false)
+                }}
+                className="px-4 py-2 border border-accent text-accent text-sm rounded font-mono hover:bg-accent-tint transition-colors"
+              >
+                AI Chat
+              </button>
+            </div>
+          </motion.div>
+        )}
       </header>
 
       <main>
@@ -305,12 +370,15 @@ export default function Home() {
                 {/* Profile Photo */}
                 <div className="relative group">
                   <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-navy-light border-2 border-navy-lighter group-hover:border-accent/50 transition-colors">
-                    <div className="w-full h-full flex flex-col items-center justify-center text-dev-slate">
-                      <svg className="w-16 h-16 mb-2 text-navy-lighter" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                      </svg>
-                      <span className="text-xs font-mono text-dev-slate">photo</span>
-                    </div>
+                    <Image
+                      src="/profile.jpg"
+                      alt="이상민"
+                      fill
+                      className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-300 pointer-events-none select-none protected"
+                      draggable={false}
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-accent/10 group-hover:bg-transparent transition-colors duration-300" />
                   </div>
                   <div className="absolute -inset-0 border-2 border-accent/30 rounded-lg translate-x-3 translate-y-3 -z-10 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform" />
                 </div>
@@ -454,15 +522,6 @@ export default function Home() {
               <Github className="w-5 h-5" />
             </a>
             <a
-              href="https://github.com/dev-leemin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-dev-slate hover:text-accent transition-colors hover:-translate-y-1 transform duration-200"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="w-5 h-5" />
-            </a>
-            <a
               href="mailto:leemin-dev@gmail.com"
               className="text-dev-slate hover:text-accent transition-colors hover:-translate-y-1 transform duration-200"
               aria-label="Email"
@@ -486,14 +545,6 @@ export default function Home() {
           className="text-dev-slate hover:text-accent transition-colors hover:-translate-y-1 transform duration-200"
         >
           <Github className="w-5 h-5" />
-        </a>
-        <a
-          href="https://github.com/dev-leemin"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-dev-slate hover:text-accent transition-colors hover:-translate-y-1 transform duration-200"
-        >
-          <Linkedin className="w-5 h-5" />
         </a>
         <a
           href="mailto:leemin-dev@gmail.com"

@@ -95,3 +95,13 @@ body {
   background: linear-gradient(to right, var(--accent), transparent);
   max-width: 300px;
 }
+
+/* Image protection - profile only */
+img.protected {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}

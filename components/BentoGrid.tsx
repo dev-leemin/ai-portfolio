@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ExternalLink, Folder } from 'lucide-react'
+import { ExternalLink, Folder, Github } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -371,6 +371,14 @@ function PersonalProjectCard({
         <div className="flex items-center justify-between mb-4">
           <Folder className="w-10 h-10 text-accent" />
           <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/dev-leemin"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-light hover:text-accent transition-colors"
+            >
+              <Github className="w-5 h-5" />
+            </a>
             {project.url && (
               <a
                 href={project.url}
