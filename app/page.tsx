@@ -12,6 +12,7 @@ import {
   X,
 } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import ChatBot from '@/components/ChatBot'
 import BentoGrid from '@/components/BentoGrid'
 import TechStack from '@/components/TechStack'
@@ -23,6 +24,7 @@ const navItems = [
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
+  { label: 'Resume', href: '/resume' },
 ]
 
 const stats = [
@@ -93,19 +95,30 @@ export default function Home() {
           </motion.a>
 
           <div className="hidden md:flex items-center gap-6">
-            {navItems.map((item, i) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="text-slate-light text-sm hover:text-accent transition-colors font-mono"
-              >
-                <span className="text-accent text-xs">0{i + 1}.</span>{' '}
-                {item.label}
-              </motion.a>
-            ))}
+            {navItems.map((item, i) =>
+              item.href.startsWith('/') ? (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-slate-light text-sm hover:text-accent transition-colors font-mono"
+                >
+                  <span className="text-accent text-xs">0{i + 1}.</span>{' '}
+                  {item.label}
+                </Link>
+              ) : (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="text-slate-light text-sm hover:text-accent transition-colors font-mono"
+                >
+                  <span className="text-accent text-xs">0{i + 1}.</span>{' '}
+                  {item.label}
+                </motion.a>
+              )
+            )}
             <motion.button
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -134,17 +147,29 @@ export default function Home() {
             className="md:hidden bg-navy-light/95 backdrop-blur-md border-b border-navy-lighter"
           >
             <div className="flex flex-col items-center gap-4 py-6">
-              {navItems.map((item, i) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-slate-light text-sm hover:text-accent transition-colors font-mono"
-                >
-                  <span className="text-accent text-xs">0{i + 1}.</span>{' '}
-                  {item.label}
-                </a>
-              ))}
+              {navItems.map((item, i) =>
+                item.href.startsWith('/') ? (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-slate-light text-sm hover:text-accent transition-colors font-mono"
+                  >
+                    <span className="text-accent text-xs">0{i + 1}.</span>{' '}
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-slate-light text-sm hover:text-accent transition-colors font-mono"
+                  >
+                    <span className="text-accent text-xs">0{i + 1}.</span>{' '}
+                    {item.label}
+                  </a>
+                )
+              )}
               <button
                 onClick={() => {
                   setShowChat(true)

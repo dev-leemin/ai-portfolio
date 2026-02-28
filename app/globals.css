@@ -105,3 +105,37 @@ img.protected {
   user-select: none;
   pointer-events: none;
 }
+
+/* Print Styles - Resume Page */
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+  }
+
+  .resume-page {
+    background: white !important;
+  }
+
+  .resume-page main {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .resume-page section {
+    break-inside: avoid;
+  }
+
+  * {
+    box-shadow: none !important;
+    transition: none !important;
+  }
+}

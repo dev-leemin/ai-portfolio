@@ -1,63 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-
-const techCategories = [
-  {
-    category: 'Frontend',
-    skills: [
-      { name: 'WebSquare SP5', experience: '4년' },
-      { name: 'Nexacro', experience: '2년' },
-      { name: 'JavaScript', experience: '4년' },
-      { name: 'Next.js / React', experience: '학습중' },
-      { name: 'TypeScript', experience: '학습중' },
-      { name: 'Tailwind CSS', experience: '학습중' },
-    ],
-  },
-  {
-    category: 'Backend',
-    skills: [
-      { name: 'Java', experience: '4년' },
-      { name: '전자정부 프레임워크', experience: '4년' },
-      { name: 'PowerMDD', experience: '1년' },
-      { name: 'Prisma ORM', experience: '학습중' },
-    ],
-  },
-  {
-    category: 'Database',
-    skills: [
-      { name: 'PostgreSQL', experience: '3년' },
-      { name: 'Oracle', experience: '3년' },
-      { name: 'Tibero', experience: '1년' },
-      { name: 'Neon Serverless', experience: '학습중' },
-    ],
-  },
-  {
-    category: 'Integration',
-    skills: [
-      { name: 'SSO 연계', experience: '1년' },
-      { name: '전자결재 시스템', experience: '2년' },
-      { name: '그룹웨어 연동', experience: '1년' },
-    ],
-  },
-  {
-    category: 'Server & Infra',
-    skills: [
-      { name: 'Nginx', experience: '3년' },
-      { name: 'Tomcat', experience: '4년' },
-      { name: 'Apache', experience: '2년' },
-      { name: 'Vercel', experience: '학습중' },
-    ],
-  },
-  {
-    category: 'Tools & Others',
-    skills: [
-      { name: 'Git', experience: '4년' },
-      { name: 'JMeter', experience: '2년' },
-      { name: 'AI/ML (Groq, Claude)', experience: '학습중' },
-    ],
-  },
-]
+import { techCategories } from '@/lib/resume-data'
 
 export default function TechStack() {
   return (
