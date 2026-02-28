@@ -73,7 +73,7 @@ export const experiences: CareerExperience[] = [
     role: '과장 / PL',
     type: '공공기관',
     team: '9명',
-    period: '2024.07 - 현재',
+    period: '2025.07 - 현재',
     description: [
       'PL로서 9명 팀 프로젝트 일정 관리 및 개발 총괄',
       '공통 모듈 전반 — 프레임, 권한, 로그인, 메뉴, 대시보드, 전자결재, Report, SSO',
@@ -246,7 +246,7 @@ export const careerProjects: CareerProject[] = [
     description:
       'PL로서 9명 팀을 이끌고 공통 모듈 전반(프레임, 권한, SSO, 전자결재, Report, PostgreSQL 백업 체계)을 구축. WebSocket 알림, 근무·다면·개인·부서평가, KPI, 성과급 계산까지 인사-평가 시스템 전반을 개발하고 있습니다.',
     tech: ['Nexacro', '전자정부', 'PostgreSQL', 'WebSocket'],
-    period: '2024.07 - 진행중',
+    period: '2025.07 - 진행중',
     responsibilities: [
       'PL로서 9명 팀 프로젝트 일정 관리 및 개발 총괄',
       '공통 모듈 전반 — 프레임, 권한, 로그인, 메뉴, 대시보드, 전자결재, Report, SSO',
