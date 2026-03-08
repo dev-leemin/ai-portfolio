@@ -120,21 +120,32 @@ img.protected {
     line-height: 1.4 !important;
   }
 
-  .resume-page,
-  .portfolio-page {
+  .resume-page {
     background: white !important;
   }
 
-  .resume-page main,
-  .portfolio-page main {
+  .portfolio-page {
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+
+  .resume-page main {
     max-width: none !important;
     padding: 0 !important;
     margin: 0 !important;
   }
 
-  .resume-page section,
-  .portfolio-page section {
+  .portfolio-page main {
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  .resume-page section {
     break-inside: avoid;
+  }
+
+  .portfolio-page section {
+    page-break-inside: auto;
   }
 
   .print\:break-before-page {
